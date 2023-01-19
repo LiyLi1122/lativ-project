@@ -1,5 +1,6 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
+const FacebookStrategy = require('passport-facebook')
 const passportJWT = require('passport-jwt')
 const JWTStrategy = passportJWT.Strategy
 const ExtractJWT = passportJWT.ExtractJwt
@@ -9,9 +10,9 @@ const { User } = require('../models')
 const jwtOptions = {
   // commend to extract token from request
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-  secretOrKey: 'key'
+  secretOrKey: process.env.JWT_KEY
 }
-
+// register local strategy in passport
 passport.use(new LocalStrategy(
   {
     usernameField: 'email'
@@ -25,34 +26,50 @@ passport.use(new LocalStrategy(
         throw err
       }
 
-      const data = await User.findOne({ where: { email } })
-      if (!data) {
+      const user = await User.findOne({ where: { email } })
+      if (!user) {
         err.statusCode = 400
         err.message = '帳戶不存在'
         throw err
       }
-      const isMatch = await bcryptjs.compare(password, data.password)
+      const isMatch = await bcryptjs.compare(password, user.password)
       if (!isMatch) {
-        err.statusCode = 401
+        err.statusCode = 400
         err.message = '密碼錯誤'
         throw err
       }
-      done(null, data.toJSON())
+      done(null, user.toJSON())
     } catch (error) {
       done(error)
     }
   }))
 
+// register JWT strategy in passport
 passport.use(new JWTStrategy(jwtOptions, async (jwtpayload, done) => {
   try {
-    const err = new Error()
-    const data = await User.findByPk(jwtpayload.id)
-    if (!data) {
-      err.statusCode = 401
-      err.message = '尚未登入，請先登入'
-      throw err
-    }
-    done(null, data)
+    const user = await User.findByPk(jwtpayload.id)
+    if (!user) done(null, false)
+    done(null, user.toJSON())
+  } catch (error) {
+    done(error)
+  }
+}))
+
+// register FACEBOOK strategy in passport
+passport.use(new FacebookStrategy({
+  clientID: process.env.FACEBOOK_ID,
+  clientSecret: process.env.FACEBOOK_KEY,
+  callbackURL: process.env.CALLBACK_URL,
+  profileFields: ['displayName', 'email']
+}, async (accessToken, refreshToken, profile, done) => {
+  try {
+    const { name, email } = profile._json
+    const password = Math.random().toString(36).slice(-8)
+    const [user] = await User.findOrCreate({
+      where: { email },
+      defaults: { name, email, password: bcryptjs.hashSync(password, 10) }
+    })
+    if (user) done(null, user.toJSON())
   } catch (error) {
     done(error)
   }

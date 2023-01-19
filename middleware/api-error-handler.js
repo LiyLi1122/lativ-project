@@ -1,30 +1,30 @@
+/**
+ * @param {Object} error
+ * @param {Object} req
+ * @param {Object} register
+ * @param {Object} next
+ */
+
 function apiErrorHandler (error, req, res, next) {
   const DEFAULT_STATUS = 'Error'
   const DEFAULT_STATUS_CODE = 500
 
-  const errorStatus = 'error'
+  const errorStatus = 'Fail'
   const errorStatusCode = error.statusCode
   const errorMessage = error.message
 
   switch (errorStatusCode) {
-    case 400:
+    case (400 || 401) :
       res.status(errorStatusCode).json({
-        status: errorStatus,
-        message: errorMessage
+        Status: errorStatus,
+        Message: errorMessage
       })
       break
-    case 401:
-      res.status(errorStatusCode).json({
-        status: errorStatus,
-        message: errorMessage
+    default:
+      res.status(DEFAULT_STATUS_CODE).json({
+        Status: DEFAULT_STATUS,
+        Message: error
       })
-      break
-    case 402:
-      res.status(errorStatusCode).json({
-        status: errorStatus,
-        message: errorMessage
-      })
-      break
   }
   next(error)
 }

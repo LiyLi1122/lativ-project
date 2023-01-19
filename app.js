@@ -13,7 +13,7 @@ app.use(express.urlencoded({ extended: true }))
 app.use(passport.initialize())
 
 app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
-app.use('/api', routes)
+app.use(routes)
 
 app.listen(port, () => console.log(`app is listening ${port}`))
 
