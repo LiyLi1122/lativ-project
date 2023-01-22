@@ -1,14 +1,15 @@
 {
   "swagger": "2.0",
   "info": {
+    "title": "Lativ-Project apis",
     "version": "1.0.0",
-    "title": "REST API",
     "description": ""
   },
-  "host": "localhost:3000",
+  "host": "lativ-database.c9y6fmfie00t.ap-northeast-1.rds.amazonaws.com:3000",
   "basePath": "/",
   "schemes": [
-    "http"
+    "http",
+    "https"
   ],
   "paths": {
     "/api/users/signup": {
