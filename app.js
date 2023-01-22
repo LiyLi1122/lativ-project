@@ -9,7 +9,14 @@ const passport = require('./config/passport.js')
 const swaggerUi = require('swagger-ui-express')
 const swaggerFile = require('./swagger_output.json')
 
-app.use(cors())
+const corsOptions = {
+  origin: [
+    '*'
+  ],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}
+
+app.use(cors(corsOptions))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(passport.initialize())
