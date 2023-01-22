@@ -3,18 +3,15 @@ require('dotenv').config()
 const port = process.env.PORT
 const express = require('express')
 const cors = require('cors')
-const app = express()
 const routes = require('./routes')
 const passport = require('./config/passport.js')
 const swaggerUi = require('swagger-ui-express')
 const swaggerFile = require('./swagger_output.json')
-
 const corsOptions = {
-  origin: [
-    '*'
-  ],
+  origin: '*',
   allowedHeaders: ['Content-Type', 'Authorization']
 }
+const app = express()
 
 app.use(cors(corsOptions))
 app.use(express.json())
