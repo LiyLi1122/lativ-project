@@ -14,7 +14,8 @@ function apiErrorHandler (error, req, res, next) {
   const errorMessage = error.message
 
   switch (errorStatusCode) {
-    case (400 || 401) :
+    case 400 :
+    case 401 :
       res.status(errorStatusCode).json({
         Status: errorStatus,
         Message: errorMessage

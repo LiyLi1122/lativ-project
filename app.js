@@ -1,13 +1,15 @@
 require('dotenv').config()
-const port = process.env.PORT || 8080
 
+const port = process.env.PORT
 const express = require('express')
+const cors = require('cors')
 const app = express()
 const routes = require('./routes')
 const passport = require('./config/passport.js')
 const swaggerUi = require('swagger-ui-express')
 const swaggerFile = require('./swagger_output.json')
 
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(passport.initialize())

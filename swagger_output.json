@@ -11,7 +11,7 @@
     "http"
   ],
   "paths": {
-    "/api/signup": {
+    "/api/user/signup": {
       "post": {
         "tags": [
           "User"
@@ -19,24 +19,35 @@
         "description": "",
         "parameters": [
           {
-            "name": "body",
+            "name": "obj",
             "in": "body",
+            "description": "註冊",
             "schema": {
               "type": "object",
               "properties": {
                 "name": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "Blake Well"
                 },
                 "email": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "test1@test.com"
                 },
                 "password": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "123"
                 },
                 "checkPassword": {
-                  "example": "any"
+                  "type": "string",
+                  "example": "123"
                 }
-              }
+              },
+              "required": [
+                "name",
+                "email",
+                "password",
+                "checkPassword"
+              ]
             }
           }
         ],
@@ -47,7 +58,7 @@
         }
       }
     },
-    "/api/signin": {
+    "/api/user/signin": {
       "post": {
         "tags": [
           "User"
