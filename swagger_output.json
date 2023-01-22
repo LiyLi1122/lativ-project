@@ -11,7 +11,7 @@
     "http"
   ],
   "paths": {
-    "/api/user/signup": {
+    "/api/users/signup": {
       "post": {
         "tags": [
           "User"
@@ -58,7 +58,7 @@
         }
       }
     },
-    "/api/user/signin": {
+    "/api/users/signin": {
       "post": {
         "tags": [
           "User"
