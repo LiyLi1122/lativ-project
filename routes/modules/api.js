@@ -8,10 +8,10 @@ const auth = require('../../middleware/auth.js')
 const userController = require('../../controllers/userController')
 
 // signup
-router.post('/user/signup', signupValidator, userController.signup)
+router.post('/users/signup', signupValidator, userController.signup)
 
 // signin
-router.post('/user/signin', passport.authenticate('local', { session: false }), userController.signin)
+router.post('/users/signin', passport.authenticate('local', { session: false }), userController.signin)
 
 // homepage
 router.get('/index', auth.tokenAuth, (req, res, next) => {
