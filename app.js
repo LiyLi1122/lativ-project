@@ -9,6 +9,7 @@ const swaggerUi = require('swagger-ui-express')
 const swaggerFile = require('./swagger_output.json')
 const corsOptions = {
   origin: '*',
+  methods: 'GET,HEAD,PUT,POST,DELETE',
   allowedHeaders: ['Content-Type', 'Authorization']
 }
 const app = express()
