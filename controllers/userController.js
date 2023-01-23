@@ -17,6 +17,7 @@ module.exports = {
     */
 
     try {
+      console.log('--------------我是 /signin ------------ ')
       // delete private info
       delete req.user.password
       // sign a HS256 algorithm token
@@ -46,6 +47,7 @@ module.exports = {
     */
 
     try {
+      console.log('--------------我是 /signup ------------ ')
       const err = new Error()
       const { name, email, password } = req.body
       const [user, created] = await User.findOrCreate({

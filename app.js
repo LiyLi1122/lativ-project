@@ -21,7 +21,7 @@ app.use(passport.initialize())
 
 app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 app.get('/test', (req, res) => {
-  console.log('--------------我是分隔線------------ ')
+  console.log('--------------我是 /test ------------ ')
   res.json('成功')
 })
 app.use(routes)
