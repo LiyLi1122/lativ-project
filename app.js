@@ -20,7 +20,10 @@ app.use(express.urlencoded({ extended: true }))
 app.use(passport.initialize())
 
 app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
-app.get('/test', (req, res) => res.json('成功'))
+app.get('/test', (req, res) => {
+  console.log('--------------我是分隔線------------ ')
+  res.json('成功')
+})
 app.use(routes)
 
 app.listen(port, () => console.log(`app is listening ${port}`))
