@@ -4,7 +4,7 @@ const doc = {
   info: {
     title: 'Lativ-Project apis'
   },
-  host: 'http://18.179.178.60:3000',
+  host: '18.179.178.60:3000',
   schemes: ['http', 'https']
 }
 
