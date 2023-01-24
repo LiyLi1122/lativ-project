@@ -20,8 +20,9 @@ app.use(express.urlencoded({ extended: true }))
 app.use(passport.initialize())
 
 app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
+// 為了測試路由所設定
 app.get('/test', (req, res) => {
-  console.log('--------------我是 /test ------------ ')
+  console.log('-------------- /test ------------ ')
   res.json('成功')
 })
 app.use(routes)

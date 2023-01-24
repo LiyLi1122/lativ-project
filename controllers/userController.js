@@ -17,7 +17,7 @@ module.exports = {
     */
 
     try {
-      console.log('--------------我是 /signin ------------ ')
+      console.log('-------------- /signin ------------ ')
       // delete private info
       delete req.user.password
       // sign a HS256 algorithm token
@@ -28,6 +28,7 @@ module.exports = {
         data: req.user
       })
     } catch (error) {
+      console.log(error)
       next(error)
     }
   },
@@ -47,7 +48,7 @@ module.exports = {
     */
 
     try {
-      console.log('--------------我是 /signup ------------ ')
+      console.log('-------------- /signup ------------ ')
       const err = new Error()
       const { name, email, password } = req.body
       const [user, created] = await User.findOrCreate({
@@ -64,6 +65,7 @@ module.exports = {
         Message: '註冊成功，請先登入'
       })
     } catch (error) {
+      console.log(error)
       next(error)
     }
   }
