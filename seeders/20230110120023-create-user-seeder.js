@@ -17,6 +17,7 @@ module.exports = {
         }
       }))
       console.log('Seed created done!')
+      process.exit()
     } catch (error) {
       console.log('Error: ', error)
     }
