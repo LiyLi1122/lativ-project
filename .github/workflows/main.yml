@@ -19,6 +19,7 @@ jobs:
         host: ${{ secrets.EC2_HOST }}
         username: ${{ secrets.EC2_USERNAME }}
         private-key: ${{ secrets.EC2_PRIVATE_KEY }}
+        ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
           git pull
           pm2 start ecosystem.config.js --only app
