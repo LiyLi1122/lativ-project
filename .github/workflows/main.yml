@@ -62,5 +62,6 @@ jobs:
         chmod 600 ec2.pem
     - name: Deploy to EC2
       run: |
+        ssh-add ~/.ssh/ec2.pem
         ssh-keyscan -H ${{ secrets.EC2_IP }} >> ~/.ssh/known_hosts
         ssh -i ec2.pem ubuntu@${{ secrets.EC2_IP }}
