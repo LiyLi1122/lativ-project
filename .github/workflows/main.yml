@@ -83,7 +83,7 @@ jobs:
         echo "${{ secrets.EC2_PRIVATE_KEY }}" > ec2.pem
         chmod 600 ec2.pem
     # - name: Add EC2 host to known_hosts 
-    #   run: ssh-keyscan -H ${{ secrets.EC2_HOST }} >> /.ssh/known_hosts
+      run: ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
     - name: Deploy
       run: | 
         ssh -t -t -i ec2.pem -l ec2-user ${{ secrets.EC2_HOST }}
