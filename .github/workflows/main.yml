@@ -80,13 +80,14 @@ jobs:
       uses: actions/checkout@v2
     - name: Setup SSH
       run: |
-        echo "${{ secrets.EC2_PRIVATE_KEY }}" > /home/ec2-user/.ssh/ec2.pem
-        chmod 600 /home/ec2-user/.ssh/ec2.pem
+        mkdir -p ~/.ssh
+        echo "${{ secrets.EC2_PRIVATE_KEY }}" > /home/runner/.ssh/id_rsa
+        chmod 600 /home/runner/.ssh/id_rsa
     - name: Add EC2 host to known_hosts 
-      run: ssh-keyscan -H "ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com" >> /home/ec2-user/.ssh/known_hosts
+      run: ssh-keyscan -H "ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com" >> /home/runner/.ssh/known_hosts
     - name: Deploy
       run: | 
-        ssh -t -t -i "/home/ec2-user/.ssh/ec2.pem" -l ec2-user@ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com
+        ssh -t -t -i "/home/runner/.ssh/id_rsa" -R "ec2-user@ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com"
 
 
 
