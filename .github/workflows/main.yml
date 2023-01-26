@@ -3,8 +3,6 @@ on:
   push:
     branches:
       - main
-      with:
-        token: ${{ secrets.TOKEN }}
 
 jobs:
   deploy:
