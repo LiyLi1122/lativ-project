@@ -7,7 +7,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    # steps:
+    steps:
     # - name: Checkout code
     #   uses: actions/checkout@v2
     #   with:
@@ -21,7 +21,7 @@ jobs:
         private-key: ${{ secrets.EC2_PRIVATE_KEY }}
         # ssh-key: ${{ secrets.SSH_PRIVATE_KEY }}
         script: |
-          # git pull
+          cd lativ-project
           pm2 start ecosystem.config.js --only app
 
 # name: Deploy to EC2
