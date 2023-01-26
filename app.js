@@ -22,7 +22,7 @@ app.use(passport.initialize())
 app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerFile))
 // 為了測試路由所設定
 app.get('/test', (req, res) => {
-  console.log('-------------- /tests ------------ ')
+  console.log('-------------- /testss ------------ ')
   res.json('成功')
 })
 app.use(routes)
