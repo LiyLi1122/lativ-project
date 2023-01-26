@@ -87,7 +87,7 @@ jobs:
       run: ssh-keyscan -H "ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com" >> /home/runner/.ssh/known_hosts
     - name: Deploy
       run: | 
-        ssh -t -t /home/runner/id_dsa ec2-user@ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com
+        ssh -t -t -i /home/runner/id_dsa -l ec2-user@ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com
 
 
 
