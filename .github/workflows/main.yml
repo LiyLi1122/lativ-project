@@ -82,8 +82,9 @@ jobs:
       run: |
         mkdir -p ~/.ssh
         echo "${{ secrets.EC2_PRIVATE_KEY }}" > ~/.ssh/ec2.pem
-        chmod 600 ~/.ssh/ec2.pem
+        eval "$(ssh-agent -s)"
         sudo ssh-add ~/.ssh/ec2.pem
+        chmod 600 ~/.ssh/ec2.pem
     - name: Add EC2 host to known_hosts 
       run: ssh-keyscan -H "ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com" >> ~/.ssh/known_hosts
     - name: Deploy
