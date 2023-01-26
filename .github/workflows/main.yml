@@ -81,13 +81,13 @@ jobs:
     - name: Setup SSH
       run: |
         mkdir -p ~/.ssh
-        echo "${{ secrets.EC2_PRIVATE_KEY }}" > ~/.ssh/ec2
-        chmod 600 /home/runner/.ssh/ec2
+        echo "${{ secrets.EC2_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 /home/runner/.ssh/id_rsa
     - name: Add EC2 host to known_hosts 
       run: ssh-keyscan -H "ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com" >> ~/.ssh/known_hosts
     - name: Deploy
       run: | 
-        ssh -t -t -i "~/.ssh/ec2" ec2-user@ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com
+        ssh -t -t -i "~/.ssh/id_rsa" ec2-user@ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com
 
 
 
