@@ -87,7 +87,7 @@ jobs:
       run: ssh-keyscan -H 18.179.178.60 >> ~/.ssh/known_hosts
     - name: Deploy
       run: | 
-        ssh -t -t -i "~/.ssh/ec2.pem" -l ec2-user 18.179.178.60
+        ssh -t -t -i "~/.ssh/ec2.pem" -l ec2-user@ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com
 
 
 
