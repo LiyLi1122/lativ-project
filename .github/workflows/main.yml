@@ -64,5 +64,4 @@ jobs:
       run: |
         eval `ssh-agent -s`
         sudo ssh-add ~/.ssh/ec2.pem
-        ssh-keyscan -H ${{ secrets.EC2_IP }} >> ~/.ssh/known_hosts
         ssh -i ec2.pem ec2-user@${{ secrets.EC2_IP }}
