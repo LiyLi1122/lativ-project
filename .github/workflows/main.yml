@@ -62,4 +62,4 @@ jobs:
         chmod 600 ec2.pem
     - name: Deploy to EC2
       run: |
-        ssh -i ./home/runner/work/ec2.pem -l ec2-user ${{ secrets.HOST }}
+        ssh -i "ec2.pem" -l ec2-user ${{ secrets.HOST }}
