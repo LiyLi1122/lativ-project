@@ -45,6 +45,28 @@
 #         git pull
 
 
+# name: Deploy to EC2
+# on:
+#   push:
+#     branches:
+#       - main
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Checkout code
+#       uses: actions/checkout@v2
+#     - name: Setup SSH
+#       run: |
+#         echo "${{ secrets.EC2_PRIVATE_KEY }}" > ec2.pem
+#         chmod 600 ec2.pem
+#     - name: Deploy to EC2
+#       run: |
+#         eval `ssh-agent`
+#         sudo ssh-add ~/.ssh/ec2.pem
+#         # ssh-keyscan -H ${{ secrets.EC2_IP }} >> ~/.ssh/known_hosts
+#         ssh -i ec2.pem ec2-user@${{ secrets.EC2_IP }}
+
 name: Deploy to EC2
 on:
   push:
@@ -58,11 +80,15 @@ jobs:
       uses: actions/checkout@v2
     - name: Setup SSH
       run: |
-        echo "${{ secrets.EC2_PRIVATE_KEY }}" > ec2.pem
+        echo "${{ secrets.EC2_PRIVATE_KEY }}" > key/ec2.pem
         chmod 600 ec2.pem
-    - name: Deploy to EC2
+    - name: Add EC2 host to known_hosts
+      run: ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+    - name: Deploy
       run: |
-        eval `ssh-agent`
-        sudo ssh-add ~/.ssh/ec2.pem
-        # ssh-keyscan -H ${{ secrets.EC2_IP }} >> ~/.ssh/known_hosts
-        ssh -i ec2.pem ec2-user@${{ secrets.EC2_IP }}
+        ssh -i key/ec2.pem ec2-user@${{ secrets.EC2_IP }} 
+
+
+
+
+
