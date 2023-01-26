@@ -80,13 +80,14 @@ jobs:
       uses: actions/checkout@v2
     - name: Setup SSH
       run: |
-        echo "${{ secrets.EC2_PRIVATE_KEY }}" > ec2.pem
-        chmod 600 ec2.pem
+        mkdir -p ~/.ssh
+        echo "${{ secrets.EC2_PRIVATE_KEY }}" > ~/.ssh/ec2.pem
+        chmod 600 ~/.ssh/ec2.pem
     # - name: Add EC2 host to known_hosts 
-    #   run: ssh-keyscan -H ${{ secrets.EC2_HOST }} >> ~/.ssh/known_hosts
+      run: ssh-keyscan -H 18.179.178.60 >> ~/.ssh/known_hosts
     - name: Deploy
       run: | 
-        ssh -t -t -i "ec2.pem" -l ec2-user 18.179.178.60
+        ssh -t -t -i "~/.ssh/ec2.pem" -l ec2-user 18.179.178.60
 
 
 
