@@ -93,7 +93,8 @@ jobs:
             IdentityFile ~/.ssh/github-actions-key
             StrictHostKeyChecking no
           END
-      - run: cd ~/lativ-project 
+        - name: List home directory
+          run: ssh ec2 'ls'
         
 
 # name: CI/CD counter app
