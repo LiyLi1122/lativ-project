@@ -83,9 +83,10 @@ jobs:
             HOSTNAME : ${{ secrets.EC2_HOST  }}
             USER_NAME : ${{ secrets.EC2_USERNAME }}
         run: |
+          mkdir -p ~/.ssh/
           echo "$PRIVATE_KEY" > ~/.ssh/github-actions-key
           chmod 600 ~/.ssh/github-actions-key
-          cat >>~/.ssh/config <<END
+          cat >> ~/.ssh/config <<END
           Host ec2
             HostName $HOSTNAME
             User $USER_NAME
@@ -93,7 +94,6 @@ jobs:
             StrictHostKeyChecking no
           END
           
-
       - name: List home directory
           run: ssh ec2 'ls -la'
 
