@@ -38,6 +38,7 @@ jobs:
             HostName $HOSTNAME
             User $USER_NAME
             IdentityFile ~/.ssh/github-actions-key
+            StrictHostKeyChecking no
           END
       - name :
         run: ssh $HOSTNAME 'git pull'
