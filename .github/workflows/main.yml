@@ -25,8 +25,9 @@ jobs:
         PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
         HOSTNAME : ${{ secrets.EC2_HOST  }}
         USER_NAME : ${{ secrets.EC2_USERNAME }}
-      run: |
-        echo "I am logged into EC2!"
+      - name: try
+        run: |
+          echo "I am logged into EC2!"
 
 
 # name: Deploy to EC2
