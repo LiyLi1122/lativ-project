@@ -56,7 +56,9 @@ jobs:
             StrictHostKeyChecking no
           END
       - name :
-        run: ssh ec2 sudo cd ~/lativ-project git pull
+        run: |
+        console.log(ec2)
+        ssh ec2 sudo cd ~/lativ-project git pull
 
 # name: Push-to-EC2
 
