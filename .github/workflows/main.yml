@@ -93,8 +93,6 @@ jobs:
             StrictHostKeyChecking no
           END
           
-      - name: List home directory
-          run: ssh ec2 'ls -la'
 
 # name: CI/CD counter app
 
