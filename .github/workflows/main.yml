@@ -1,57 +1,70 @@
-# name: Deploy to EC2
-# on:
-#   push:
-#     branches:
-#       - main
-# jobs:
-#   deploy:
-#     runs-on: ubuntu-latest
 
-#     steps:
-#       - name: Git clone the repository
-#         uses: actions/checkout@v2
-#       - name: Configure SSH & EC2
-#         env:
-#             PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
-#             HOSTNAME : ${{ secrets.EC2_HOST  }}
-#             USER_NAME : ${{ secrets.EC2_USERNAME }}
-#         run: |
-#           mkdir -p ~/.ssh/
-#           echo "$PRIVATE_KEY" > ~/.ssh/github-actions-key
-#           chmod 600 ~/.ssh/github-actions-key
-#           cat >> ~/.ssh/config 
-#           <<END
-#           Host ec2
-#             HostName $HOSTNAME
-#             User $USER_NAME
-#             IdentityFile ~/.ssh/github-actions-key
-#             StrictHostKeyChecking no
-#           END
+    # - name: Install SSH key
+    #   uses: shimataro/ssh-key-action@v2
+    #   with:
+    #     key: ${{ secrets.COBOTSSH }}
+    #     name: id_rsa
+    #     known_hosts: ${{ secrets.KNOWN_HOSTS }}
+    # - name: ssh
+    #   run: ssh ${{ secrets.USERNAME }}@${{ secrets.KNOWN_HOSTS }}
 
-name: Push-to-EC2
 
-# Trigger deployment only on push to master branch
+
+
+name: Deploy to EC2
 on:
   push:
     branches:
       - main
-
 jobs:
   deploy:
-    name: Deploy to EC2 on master branch push
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout the files
+      - name: Git clone the repository
         uses: actions/checkout@v2
-
-      - name: Deploy to Server 1
-        uses: easingthemes/ssh-deploy@main
+      - name: Configure SSH & EC2
         env:
-          SSH_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
-          REMOTE_HOST: ${{ secrets.EC2_HOST }}
-          REMOTE_USER: ${{ secrets.EC2_USERNAME }}
-          TARGET: ~/
+            PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
+            HOSTNAME : ${{ secrets.EC2_HOST  }}
+            USER_NAME : ${{ secrets.EC2_USERNAME }}
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$PRIVATE_KEY" > ~/.ssh/github-actions-key
+          chmod 600 ~/.ssh/github-actions-key
+          cat >> ~/.ssh/config 
+          <<END
+          Host ec2
+            HostName $HOSTNAME
+            User $USER_NAME
+            IdentityFile ~/.ssh/github-actions-key
+            StrictHostKeyChecking yes
+          END
+
+# name: Push-to-EC2
+
+# # Trigger deployment only on push to master branch
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   deploy:
+#     name: Deploy to EC2 on master branch push
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout the files
+#         uses: actions/checkout@v2
+
+#       - name: Deploy to Server 1
+#         uses: easingthemes/ssh-deploy@main
+#         env:
+#           SSH_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
+#           REMOTE_HOST: ${{ secrets.EC2_HOST }}
+#           REMOTE_USER: ${{ secrets.EC2_USERNAME }}
+#           TARGET: ~/
         # with:  
         #   script:
         #     cd lativ-project
