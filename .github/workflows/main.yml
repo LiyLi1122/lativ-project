@@ -38,7 +38,6 @@ jobs:
             HostName $HOSTNAME
             User $USER_NAME
             IdentityFile ~/.ssh/github-actions-key
-            StrictHostKeyChecking yes
           END
 
 # name: Push-to-EC2
