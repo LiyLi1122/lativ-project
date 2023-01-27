@@ -39,6 +39,8 @@ jobs:
             User $USER_NAME
             IdentityFile ~/.ssh/github-actions-key
           END
+        - name :
+          run: ssh ec2 'git pull'
 
 # name: Push-to-EC2
 
