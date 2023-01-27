@@ -8,24 +8,6 @@
     # - name: ssh
     #   run: ssh ${{ secrets.USERNAME }}@${{ secrets.KNOWN_HOSTS }}
 
-name: Deploy to EC2
-on:
-  push:
-    branches:
-      - main
-jobs:
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-      with:
-        ssh_private_key: ${{ secrets.EC2_PRIVATE_KEY }}
-    - name: Deploy
-      run: |
-        ssh -o StrictHostKeyChecking=no -i $ssh_private_key ec2-user@ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com 
-
-
 # name: Deploy to EC2
 # on:
 #   push:
@@ -34,29 +16,47 @@ jobs:
 # jobs:
 #   deploy:
 #     runs-on: ubuntu-latest
-
 #     steps:
-#       - name: Git clone the repository
-#         uses: actions/checkout@v2
-#       - name: Configure SSH & EC2
-#         env:
-#             PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
-#             HOSTNAME : ${{ secrets.EC2_HOST  }}
-#             USER_NAME : ${{ secrets.EC2_USERNAME }}
-#         run: |
-#           mkdir -p ~/.ssh/
-#           echo "$PRIVATE_KEY" > ~/.ssh/github-actions-key
-#           chmod 600 ~/.ssh/github-actions-key
-#           cat >> ~/.ssh/config 
-#           <<END
-#           Host ec2
-#             HostName $HOSTNAME
-#             User $USER_NAME
-#             IdentityFile ~/.ssh/github-actions-key
-#             StrictHostKeyChecking no
-#           END
-#       - name :
-#         run: ssh $HOSTNAME 'git pull'
+#     - name: Checkout
+#       uses: actions/checkout@v2
+#       with:
+#         ssh_private_key: ${{ secrets.EC2_PRIVATE_KEY }}
+#     - name: Deploy
+#       run: |
+#         ssh -o StrictHostKeyChecking=no -i $ssh_private_key ec2-user@ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com 
+
+
+name: Deploy to EC2
+on:
+  push:
+    branches:
+      - main
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Git clone the repository
+        uses: actions/checkout@v2
+      - name: Configure SSH & EC2
+        env:
+            PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
+            HOSTNAME : ${{ secrets.EC2_HOST  }}
+            USER_NAME : ${{ secrets.EC2_USERNAME }}
+        run: |
+          mkdir -p ~/.ssh/
+          echo "$PRIVATE_KEY" > ~/.ssh/github-actions-key
+          chmod 600 ~/.ssh/github-actions-key
+          cat >> ~/.ssh/config 
+          <<END
+          Host ec2
+            HostName $HOSTNAME
+            User $USER_NAME
+            IdentityFile ~/.ssh/github-actions-key
+            StrictHostKeyChecking no
+          END
+      - name :
+        run: git pull
 
 # name: Push-to-EC2
 
