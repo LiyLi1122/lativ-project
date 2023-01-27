@@ -29,8 +29,9 @@ jobs:
           END
       - name: List home directory
         run: |
-          ssh ec2 "cd ~/lativ-project"
-          ssh ec2 "pm2 start ecosystem.config.js --only app"
+          ssh ec2 
+          cd ~/lativ-project
+          pm2 start ecosystem.config.js --only app
 
         
 
