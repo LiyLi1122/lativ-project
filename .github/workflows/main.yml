@@ -28,7 +28,7 @@ jobs:
             StrictHostKeyChecking no
           END
       - name: List home directory
-        run: cd ~/lativ-project
+        run: git pull
 
         
 
