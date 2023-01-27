@@ -10,24 +10,25 @@ jobs:
     steps:
       - name: Deploy in EC2
         uses: actions/checkout@v2
-      - name: Configure SSH
+      - name:
         env:
             PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
-            HOST_NAME : ${{ secrets.EC2_HOST  }}
+            HOSTNAME : ${{ secrets.EC2_HOST  }}
             USER_NAME : ${{ secrets.EC2_USERNAME }}
         run: |
           mkdir -p ~/.ssh/
           echo "$PRIVATE_KEY" > ~/.ssh/github-actions-key
           chmod 600 ~/.ssh/github-actions-key
-          ssh -o StrictHostKeyChecking=no -i "~/.ssh/github-actions-key" ${USER_NAME}@${HOSTNAME} 
+          cat >> ~/.ssh/config 
+          <<END
+          Host ec2
+            HostName $HOSTNAME
+            User $USER_NAME
+            IdentityFile ~/.ssh/github-actions-key
+            StrictHostKeyChecking no
+          END
 
-        # cat >> ~/.ssh/config <<END
-          # Host ec2
-          #   HostName $HOST_NAME
-          #   User $USER_NAME
-          #   IdentityFile ~/.ssh/github-actions-key
-          #   StrictHostKeyChecking no
-          # END
+        
 
 
 
