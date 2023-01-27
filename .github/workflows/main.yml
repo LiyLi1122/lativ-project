@@ -20,7 +20,7 @@ jobs:
           echo "$PRIVATE_KEY" > ~/.ssh/github-actions-key
           chmod 600 ~/.ssh/github-actions-key
           cat >> ~/.ssh/config 
-          ssh -t -t StrictHostKeyChecking=no -i ~/.ssh github-actions-key ${USER_NAME}@${HOSTNAME} 
+          ssh -t -t -o StrictHostKeyChecking=no -i ~/.ssh github-actions-key ${USER_NAME}@${HOSTNAME} 
 
         # <<END
           # Host ec2
