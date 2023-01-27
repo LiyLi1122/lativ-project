@@ -87,18 +87,17 @@ jobs:
           echo "$PRIVATE_KEY" > ~/.ssh/github-actions-key
           chmod 600 ~/.ssh/github-actions-key
           cat >> ~/.ssh/config 
-          # <<END
+          ssh -t -t StrictHostKeyChecking=no -i ~/.ssh github-actions-key ${USER_NAME}@${HOSTNAME} 
+      # - name: List home directory
+      #   run: ssh ec2 'ls'
+        
+        # <<END
           # Host ec2
           #   HostName $HOSTNAME
           #   User $USER_NAME
           #   IdentityFile ~/.ssh/github-actions-key
           #   StrictHostKeyChecking no
           # END
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/github-actions-key ${USER_NAME}@${HOSTNAME} 
-      # - name: List home directory
-      #   run: ssh ec2 'ls'
-        
-
 # name: CI/CD counter app
 
 # on:
