@@ -19,8 +19,6 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@v2
-    - name: Setup SSH
-      uses: actions/setup-ssh@v1
       with:
         ssh_private_key: ${{ secrets.EC2_PRIVATE_KEY }}
     - name: Deploy
