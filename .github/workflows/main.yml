@@ -17,14 +17,14 @@ jobs:
             USER_NAME : ${{ secrets.EC2_USERNAME }}
         run: |
           mkdir -p ~/.ssh/
-          echo "$PRIVATE_KEY" > ~/.ssh/github-actions-key
-          chmod 600 ~/.ssh/github-actions-key
+          echo "$PRIVATE_KEY" > ~/.ssh/keykey
+          chmod 600 ~/.ssh/keykey
           cat >> ~/.ssh/config 
           <<END
           Host ec2
             HostName $HOSTNAME
             User $USER_NAME
-            IdentityFile ~/.ssh/github-actions-key
+            IdentityFile ~/.ssh/keykey
             StrictHostKeyChecking no
           END
       - name: List home directory
