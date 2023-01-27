@@ -13,18 +13,17 @@ jobs:
       - name: Configure SSH
         env:
             PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
-            HOSTNAME : ${{ secrets.EC2_HOST  }}
+            HOST_NAME : ${{ secrets.EC2_HOST  }}
             USER_NAME : ${{ secrets.EC2_USERNAME }}
         run: |
           mkdir -p ~/.ssh/
           echo "$PRIVATE_KEY" > ~/.ssh/github-actions-key
           chmod 600 ~/.ssh/github-actions-key
-          cat >> ~/.ssh/config 
-          ssh -t -t -o StrictHostKeyChecking=no -i ~/.ssh/github-actions-key ${USER_NAME}@${HOSTNAME} 
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/github-actions-key -l ${USER_NAME}@${HOSTNAME} 
 
-        # <<END
+        # cat >> ~/.ssh/config <<END
           # Host ec2
-          #   HostName $HOSTNAME
+          #   HostName $HOST_NAME
           #   User $USER_NAME
           #   IdentityFile ~/.ssh/github-actions-key
           #   StrictHostKeyChecking no
