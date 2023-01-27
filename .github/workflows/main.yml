@@ -56,7 +56,7 @@ jobs:
             StrictHostKeyChecking no
           END
       - name :
-        run: '~/lativ-project' git pull
+        run: ~/lativ-project git pull
 
 # name: Push-to-EC2
 
