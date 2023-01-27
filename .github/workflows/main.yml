@@ -93,6 +93,8 @@ jobs:
             IdentityFile ~/.ssh/github-actions-key
             StrictHostKeyChecking no
           END
+      - script: |
+          cd lativ-project 
         
 
 # name: CI/CD counter app
