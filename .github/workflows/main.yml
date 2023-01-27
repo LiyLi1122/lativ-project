@@ -28,7 +28,7 @@ jobs:
             StrictHostKeyChecking no
           END
       - name: List home directory
-        run: ssh ec2 'ls -la'
+        run: cd ~/lativ-project
 
         
 
