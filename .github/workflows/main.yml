@@ -33,12 +33,13 @@ jobs:
           Host ec2
             HostName ${{ env.HOSTNAME }}
             User ${{ env.USER_NAME }}
-            IdentityFile ~/keykey
+            IdentityFile ~/key
             StrictHostKeyChecking no
           END
       - name: List home directory
         run: |
-          ssh ec2 'ls'
+          ssh ec2 'git pull'
+
           # cd ~/lativ-project
           # pm2 start ecosystem.config.js --only app
 
