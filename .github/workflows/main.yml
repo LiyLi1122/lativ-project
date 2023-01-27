@@ -1,47 +1,58 @@
-name: Deploy to EC2
+# name: Deploy to EC2
+# on:
+#   push:
+#     branches:
+#       - main
+# jobs:
+#   deploy:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Git clone the repository
+#         uses: actions/checkout@v2
+#       - name: Configure SSH & EC2
+#         env:
+#             PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
+#             HOSTNAME : ${{ secrets.EC2_HOST  }}
+#             USER_NAME : ${{ secrets.EC2_USERNAME }}
+#         run: |
+#           mkdir -p ~/.ssh/
+#           echo "$PRIVATE_KEY" > ~/.ssh/github-actions-key
+#           chmod 600 ~/.ssh/github-actions-key
+#           cat >> ~/.ssh/config 
+#           <<END
+#           Host ec2
+#             HostName $HOSTNAME
+#             User $USER_NAME
+#             IdentityFile ~/.ssh/github-actions-key
+#             StrictHostKeyChecking no
+#           END
+
+name: Push-to-EC2
+
+# Trigger deployment only on push to master branch
 on:
   push:
     branches:
-      - main
-
-env:
-#  bucket_name: "<example-bucket-name>"
-  AWS_REGION: ap-northeast-1a
-  PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
-  HOSTNAME : ${{ secrets.EC2_HOST  }}
-  USER_NAME : ${{ secrets.EC2_USERNAME }}
-
+      - master
 
 jobs:
   deploy:
+    name: Deploy to EC2 on master branch push
     runs-on: ubuntu-latest
 
     steps:
-      - name: Git clone the repository
+      - name: Checkout the files
         uses: actions/checkout@v2
-      - name: Configure SSH & EC2
-        env:
-            PRIVATE_KEY: ${{ env.PRIVATE_KEY }}
-            HOSTNAME : ${{ env.EC2_HOST  }}
-            USER_NAME : ${{ env.EC2_USERNAME }}
-        run: |
-          mkdir -p ~/.ssh/
-          echo "${{ env.PRIVATE_KEY }}" > ~/key
-          chmod 600 ~/key
-          cat >> ~/.ssh/config 
-          <<END
-          Host ec2
-            HostName ${{ env.HOSTNAME }}
-            User ${{ env.USER_NAME }}
-            IdentityFile ~/key
-            StrictHostKeyChecking no
-          END
-      - name: List home directory
-        run: |
-          ssh -t -t ec2 
 
-          # cd ~/lativ-project
-          # pm2 start ecosystem.config.js --only app
+      - name: Deploy to Server 1
+        uses: easingthemes/ssh-deploy@main
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
+          REMOTE_HOST: ${{ secrets.EC2_HOST }}
+          REMOTE_USER: ${{ secrets.EC2_USERNAME }}
+          TARGET: ~/
+        script: cd lativ-project
 
         
 
