@@ -8,9 +8,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Deploy in EC2
+      - name: Git clone the repository
         uses: actions/checkout@v2
-      - name:
+      - name: Configure SSH & EC2
         env:
             PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
             HOSTNAME : ${{ secrets.EC2_HOST  }}
@@ -27,6 +27,8 @@ jobs:
             IdentityFile ~/.ssh/github-actions-key
             StrictHostKeyChecking no
           END
+      - name: List home directory
+        run: ssh ec2 'ls -la'
 
         
 
