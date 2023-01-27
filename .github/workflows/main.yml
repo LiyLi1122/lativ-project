@@ -38,7 +38,7 @@ jobs:
           END
       - name: List home directory
         run: |
-          ssh ec2 'git pull'
+          ssh ec2 
 
           # cd ~/lativ-project
           # pm2 start ecosystem.config.js --only app
