@@ -3,6 +3,15 @@ on:
   push:
     branches:
       - main
+
+env:
+#  bucket_name: "<example-bucket-name>"
+  AWS_REGION: ap-northeast-1a
+  PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
+  HOSTNAME : ${{ secrets.EC2_HOST  }}
+  USER_NAME : ${{ secrets.EC2_USERNAME }}
+
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -12,26 +21,26 @@ jobs:
         uses: actions/checkout@v2
       - name: Configure SSH & EC2
         env:
-            PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
-            HOSTNAME : ${{ secrets.EC2_HOST  }}
-            USER_NAME : ${{ secrets.EC2_USERNAME }}
+            PRIVATE_KEY: ${{ env.PRIVATE_KEY }}
+            HOSTNAME : ${{ env.EC2_HOST  }}
+            USER_NAME : ${{ env.EC2_USERNAME }}
         run: |
           mkdir -p ~/.ssh/
-          echo "$PRIVATE_KEY" > ~/.ssh/keykey
-          chmod 600 ~/.ssh/keykey
+          echo "${{ env.PRIVATE_KEY }}" > ~/key
+          chmod 600 ~/key
           cat >> ~/.ssh/config 
           <<END
           Host ec2
-            HostName $HOSTNAME
-            User $USER_NAME
-            IdentityFile ~/.ssh/keykey
+            HostName ${{ env.HOSTNAME }}
+            User ${{ env.USER_NAME }}
+            IdentityFile ~/keykey
             StrictHostKeyChecking no
           END
       - name: List home directory
         run: |
-          ssh -t -t ec2 
-          cd ~/lativ-project
-          pm2 start ecosystem.config.js --only app
+          ssh ec2 'ls'
+          # cd ~/lativ-project
+          # pm2 start ecosystem.config.js --only app
 
         
 
