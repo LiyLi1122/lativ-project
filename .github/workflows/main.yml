@@ -167,4 +167,10 @@ jobs:
       run: ssh-keyscan -H "ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com" >> ~/.ssh/known_hosts
     - name: Deploy
       run: | 
-        ssh -t -t -i "~/.ssh/key" ec2-user@ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com
+        cat >> ~/.ssh/config 
+          <<END
+          Host ec2
+            HostName ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com
+            User ec2-user
+            IdentityFile ~/.ssh/key
+          END
