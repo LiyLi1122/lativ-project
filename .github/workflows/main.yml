@@ -174,3 +174,6 @@ jobs:
             User ec2-user
             IdentityFile ~/.ssh/key
           END
+    - name: Deploy
+      run: | 
+        ssh ec2 'ls -la'
