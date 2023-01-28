@@ -165,6 +165,6 @@ jobs:
         chmod 600 ~/.ssh/key
     - name: Add EC2 host to known_hosts 
       run: ssh-keyscan -H "ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com" >> ~/.ssh/known_hosts
-    # - name: Deploy
-    #   run: | 
-    #     ssh -t -t -i "/home/runner/.ssh/id_rsa" -L "3000:localhost:80 ec2-user@ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com"
+    - name: Deploy
+      run: | 
+        ssh -t -t -i "/home/runner/.ssh/key -L "3000:localhost:80 ec2-user@ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com"
