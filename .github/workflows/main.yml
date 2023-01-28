@@ -167,4 +167,4 @@ jobs:
       run: ssh-keyscan -H "ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com" >> ~/.ssh/known_hosts
     - name: Deploy
       run: | 
-        ssh -t -t -i "/home/runner/.ssh/key -L "3000:localhost:80 ec2-user@ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com"
+        ssh -t -t -i ~/.ssh/key -l ec2-user 18.179.178.60
