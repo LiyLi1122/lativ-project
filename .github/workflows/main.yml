@@ -146,7 +146,7 @@
 
 
 
-name: Deploy to EC2
+name: Deploy
 on:
   push:
     branches:
@@ -154,26 +154,12 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      SSH_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
     - name: Setup SSH
-      run: |
-        mkdir -p ~/.ssh
-        touch known_hosts
-        echo "${{ secrets.EC2_PRIVATE_KEY }}" > ~/.ssh/key
-        chmod 600 ~/.ssh/key
-    - name: Add EC2 host to known_hosts 
-      run: ssh-keyscan -H "ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com" >> ~/.ssh/known_hosts
-    - name: Deploy
-      run: | 
-        cat >> ~/.ssh/config 
-          <<END
-          Host ec2
-            HostName ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com
-            User ec2-user
-            IdentityFile ~/.ssh/key
-          END
-    - name: Deploy
-      run: | 
-        ssh ec2 'ls -la'
+      uses: actions/setup-ssh@v1
+      with:
+        ssh-key: ${{ env.SSH_PRIVATE_KEY }}
