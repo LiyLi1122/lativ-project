@@ -140,7 +140,7 @@ jobs:
     #   run: ssh-keyscan -H "ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com" >> ~/.ssh/known_hosts
     - name: Deploy
       run: | 
-        ssh -t -t -o StrictHostKeyChecking=no -i ~/.ssh/key ec2-user@ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com
+        ssh -t -t -o StrictHostKeyChecking=no -i ~/.ssh/keykey ec2-user@ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com
 
 
 # name: Push-to-EC2
