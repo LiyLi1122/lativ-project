@@ -119,59 +119,59 @@
 #           AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}
 
 
-# name: Deploy to EC2
-# on:
-#   push:
-#     branches:
-#       - main
-# jobs:
-#   deploy:
-#     runs-on: ubuntu-latest
-#     steps:
-#     - name: Checkout code
-#       uses: actions/checkout@v2
-#     - name: Setup SSH
-#       run: |
-#         mkdir -p ~/.ssh
-#         echo "${{ secrets.EC2_PRIVATE_KEY }}" > ~/.ssh/key
-#         chmod 600 ~/.ssh/key
-#     - name: Add EC2 host to known_hosts 
-#       run: ssh-keyscan -H "ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com" >> ~/.ssh/known_hosts
-#     - name: Deploy
-#       run: | 
-#         ssh -t -t -i "/home/runner/.ssh/id_rsa" -L "3000:localhost:80 ec2-user@ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com"
-
-
-
-name: Push-to-EC2
-
-# Trigger deployment only on push to master branch
+name: Deploy to EC2
 on:
   push:
     branches:
       - main
-
 jobs:
   deploy:
-    name: Deploy to EC2 on master branch push
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout the files
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
+    - name: Setup SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.EC2_PRIVATE_KEY }}" > ~/.ssh/key
+        chmod 600 ~/.ssh/key
+        echo "${{ secrets.EC2_PUBLIC_KEY }}" > ~/.ssh/known_hosts
+    # - name: Add EC2 host to known_hosts 
+    #   run: ssh-keyscan -H "ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com" >> ~/.ssh/known_hosts
+    - name: Deploy
+      run: | 
+        ssh -o StrictHostKeyChecking=no -i ~/.ssh/key ec2-user@ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com 
 
-      - name: Deploy to Server 1
-        uses: easingthemes/ssh-deploy@main
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
-          REMOTE_HOST: ${{ secrets.EC2_HOST }}
-          REMOTE_USER: ${{ secrets.EC2_USERNAME }}
-          ARGS: "-rlgoDzvc -i --delete"
-          # SOURCE: "dist/"
-          TARGET: ${{ secrets.EC2_TARGET_DIR }}
-          SCRIPT_BEFORE: |
-            whoami
-            ls -al
+
+
+# name: Push-to-EC2
+
+# # Trigger deployment only on push to master branch
+# on:
+#   push:
+#     branches:
+#       - main
+
+# jobs:
+#   deploy:
+#     name: Deploy to EC2 on master branch push
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout the files
+#         uses: actions/checkout@v2
+
+#       - name: Deploy to Server 1
+#         uses: easingthemes/ssh-deploy@main
+#         env:
+#           SSH_PRIVATE_KEY: ${{ secrets.EC2_PRIVATE_KEY }}
+#           REMOTE_HOST: ${{ secrets.EC2_HOST }}
+#           REMOTE_USER: ${{ secrets.EC2_USERNAME }}
+#           ARGS: "-rlgoDzvc -i --delete"
+#           # SOURCE: "dist/"
+#           TARGET: ${{ secrets.EC2_TARGET_DIR }}
+#           SCRIPT_BEFORE: |
+#             ls -al
           # SCRIPT_AFTER: |
           #   whoami
           #   ls -al
