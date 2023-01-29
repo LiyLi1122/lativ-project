@@ -168,7 +168,7 @@ jobs:
           REMOTE_USER: ${{ secrets.EC2_USERNAME }}
           ARGS: "-rlgoDzvc -i --delete"
           SOURCE: "dist/"
-          # TARGET: ${{ secrets.EC2_TARGET_DIR }}
+          TARGET: ${{ secrets.EC2_TARGET_DIR }}
           SCRIPT_BEFORE: |
             whoami
             ls -al
