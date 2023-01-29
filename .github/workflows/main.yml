@@ -133,14 +133,15 @@ jobs:
     - name: Setup SSH
       run: |
         mkdir -p ~/.ssh
-        echo "${{ secrets.EC2_PRIVATE_KEY }}" > ~/.ssh/keykey
-        chmod 600 ~/.ssh/keykey
+        echo "${{ secrets.EC2_PRIVATE_KEY }}" > ~/.ssh/keykey.pem
+        chmod 600 ~/.ssh/keykey.pem
         echo "${{ secrets.EC2_PUBLIC_KEY }}" > ~/.ssh/known_hosts
+        sudo ssh-add ~/.ssh/keykey.pem
     # - name: Add EC2 host to known_hosts 
     #   run: ssh-keyscan -H "ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com" >> ~/.ssh/known_hosts
     - name: Deploy
       run: | 
-        ssh -t -t -o StrictHostKeyChecking=no -i ~/.ssh/keykey ec2-user@ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com
+        ssh -t -t -o StrictHostKeyChecking=no -i ~/.ssh/keykey.pem ec2-user@ec2-18-179-178-60.ap-northeast-1.compute.amazonaws.com
 
 
 # name: Push-to-EC2
