@@ -169,11 +169,11 @@ jobs:
           ARGS: "-rlgoDzvc -i --delete"
           # SOURCE: "dist/"
           TARGET: ${{ secrets.EC2_TARGET_DIR }}
-          # SCRIPT_BEFORE: |
-          #   whoami
-          #   ls -al
-          # SCRIPT_AFTER: |
-          #   whoami
-          #   ls -al
-          #   echo $RSYNC_STDOUT
+          SCRIPT_BEFORE: |
+            whoami
+            ls -al
+          SCRIPT_AFTER: |
+            whoami
+            ls -al
+            echo $RSYNC_STDOUT
               
