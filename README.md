@@ -21,7 +21,7 @@
 ```git clone https://github.com/LiyLi1122/lativ-project.git```  
 
 2. cd 到存放專案本機位置  
-```cd twitter-api-2022```
+```cd lativ-project```
 
 3. 安裝 npm 套件   
 ```npm install```
@@ -54,7 +54,7 @@
 * AWS EC2  
 * AWS RDS  
 * pm2  
-* Github actions
+* Github Actions
 
 
 【 其他 】  
