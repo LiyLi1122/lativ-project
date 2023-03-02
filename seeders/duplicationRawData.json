@@ -1,0 +1,365 @@
+{
+  "data": [
+    {
+      "productId": 1,
+      "gender": 0,
+      "color": "黑色",
+      "image": "https://s.lativ.com.tw/i/56746/56746031/5674603_500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/61418/61418031/6141803_48.jpg",
+      "description": "https://s.lativ.com.tw/i/61418/6141803_A_01.jpg",
+      "originalPrice": 499
+    },
+    {
+      "productId": 1,
+      "gender": 0,
+      "color": "磚桔",
+      "image": "https://s.lativ.com.tw/i/61418/61418021/6141802_500.jpg",
+      "colorImage": "https://s3.lativ.com.tw/i/61418/61418021/6141802_48.jpg",
+      "description": "https://s.lativ.com.tw/i/61418/6141803_A_01.jpg",
+      "originalPrice": 499
+    },
+    {
+      "productId": 1,
+      "gender": 0,
+      "color": "白色",
+      "image": "https://s.lativ.com.tw/i/61418/61418011/6141801_500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/61418/61418011/6141801_48.jpg",
+      "description": "https://s.lativ.com.tw/i/61418/6141803_A_01.jpg",
+      "originalPrice": 599
+    },
+    {
+      "productId": 2,
+      "gender": 0,
+      "color": "粉色",
+      "image": "https://s.lativ.com.tw/i/58327/58327011/5832701_500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/58327/58327011/5832701_48.jpg",
+      "description": "https://s.lativ.com.tw/i/58327/58327_A_01.jpg",
+      "originalPrice": 599
+    },
+    {
+      "productId": 2,
+      "gender": 0,
+      "color": "淺粉黃",
+      "image": "https://s.lativ.com.tw/i/58327/58327021/5832702_500.jpg",
+      "colorImage": "https://s3.lativ.com.tw/i/58327/58327021/5832702_48.jpg",
+      "description": "https://s.lativ.com.tw/i/58327/58327_A_01.jpg",
+      "originalPrice": 599
+    },
+    {
+      "productId": 2,
+      "gender": 0,
+      "color": "淺灰藍",
+      "image": "https://s.lativ.com.tw/i/58327/58327031/5832703_1500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/58327/58327031/5832703_48.jpg",
+      "description": "https://s.lativ.com.tw/i/58327/58327_A_01.jpg",
+      "originalPrice": 599
+    },
+    {
+      "productId": 3,
+      "gender": 0,
+      "color": "淺粉黃",
+      "image": "https://s.lativ.com.tw/i/58328/58328011/5832801_500.jpg",
+      "colorImage": "https://s3.lativ.com.tw/i/58327/58327021/5832702_48.jpg",
+      "description": "https://s.lativ.com.tw/i/58328/58328_A_01.jpg",
+      "originalPrice": 599
+    },
+    {
+      "productId": 3,
+      "gender": 0,
+      "color": "粉藍",
+      "image": "https://s.lativ.com.tw/i/58328/58328021/5832802_500.jpg",
+      "colorImage": "https://s3.lativ.com.tw/i/58328/58328021/5832802_48.jpg",
+      "description": "https://s.lativ.com.tw/i/58328/58328_A_01.jpg",
+      "originalPrice": 599
+    },
+    {
+      "productId": 4,
+      "gender": 0,
+      "color": "淺米",
+      "image": "https://s.lativ.com.tw/i/60324/60324011/6032401_500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/60324/60324011/6032401_48.jpg",
+      "description": "https://s.lativ.com.tw/i/60324/60324_A_01.jpg",
+      "originalPrice": 299
+    },
+    {
+      "productId": 4,
+      "gender": 0,
+      "color": "淺粉",
+      "image": "https://s.lativ.com.tw/i/60324/60324021/6032402_500.jpg",
+      "colorImage": "https://s3.lativ.com.tw/i/60324/60324021/6032402_48.jpg",
+      "description": "https://s.lativ.com.tw/i/60324/60324_A_01.jpg",
+      "originalPrice": 299
+    },
+    {
+      "productId": 5,
+      "gender": 0,
+      "color": "紅白格",
+      "image": "https://s.lativ.com.tw/i/58088/58088011/5808801_500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/58088/",      
+      "description": "https://s.lativ.com.tw/i/58088/5808810_A_50.jpg",
+      "originalPrice": 299
+    },
+    {
+      "productId": 5,
+      "gender": 0,
+      "color": "米色紅藍格",
+      "image": "https://s.lativ.com.tw/i/58088/58088021/5808802_500.jpg",
+      "colorImage": "https://s3.lativ.com.tw/i/58088/58088021/5808802_48.jpg",
+      "description": "https://s.lativ.com.tw/i/58088/5808810_A_50.jpg",
+      "originalPrice": 299
+    },
+    {
+      "productId": 6,   
+      "gender": 0,
+      "color": "淡粉",
+      "image": "https://s.lativ.com.tw/i/59275/59275011/5927501_500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/59275/59275011/5927501_48.jpg",
+      "description": "https://s.lativ.com.tw/i/59275/5927501_A_01.jpg",
+      "originalPrice": 299
+    },
+    {
+      "productId": 7,
+      "gender": 0,
+      "color": "淺黃",
+      "image": "https://s.lativ.com.tw/i/58778/58778011/5877801_500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/58778/58778011/5877801_48.jpg",
+      "description": "https://s.lativ.com.tw/i/58778/58778_A_01_0.jpg",
+      "originalPrice": 299
+    },
+    {
+      "productId": 7,
+      "gender": 0,
+      "color": "深灰藍",
+      "image": "https://s.lativ.com.tw/i/58778/58778031/5877803_500.jpg",
+      "colorImage": "https://s3.lativ.com.tw/i/58778/58778031/5877803_48.jpg",
+      "description": "https://s.lativ.com.tw/i/58778/58778_A_01_0.jpg",
+      "originalPrice": 299
+    },
+    {
+      "productId": 8,
+      "gender": 0,
+      "color": "藏青",
+      "image": "https://s.lativ.com.tw/i/58785/58785011/5878501_500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/58785/58785011/5878501_48.jpg",
+      "description": "https://s.lativ.com.tw/i/58785/5878501_A_01.jpg",
+      "originalPrice": 299
+    },
+    {
+      "productId": 8,
+      "gender": 0,
+      "color": "淺灰粉",
+      "image": "https://s.lativ.com.tw/i/58787/58787011/5878701_500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/58787/58787011/5878701_48.jpg",
+      "description": "https://s.lativ.com.tw/i/58785/5878501_A_01.jpg",
+      "originalPrice": 299
+    },
+    {
+      "productId": 9,
+      "gender": 0,
+      "color": "白色",
+      "image": "https://s.lativ.com.tw/i/58790/58790011/5879001_500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/58790/58790011/5879001_48.jpg",
+      "description": "https://s.lativ.com.tw/i/58790/5879001_A_01.jpg",
+      "originalPrice": 399
+    },
+    {
+      "productId": 10,
+      "gender": 0,
+      "color": "白色",
+      "image": "https://s.lativ.com.tw/i/58795/58795011/5879501_500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/58795/58795011/5879501_48.jpg",
+      "description": "https://s.lativ.com.tw/i/58795/58795_A_01.jpg",
+      "originalPrice": 399
+    },
+    {
+      "productId": 10,
+      "gender": 0,
+      "color": "黑色",
+      "image": "https://s.lativ.com.tw/i/58795/58795021/5879502_500.jpg",
+      "colorImage": "https://s3.lativ.com.tw/i/58795/58795021/5879502_48.jpg",
+      "description": "https://s.lativ.com.tw/i/58795/58795_A_01.jpg",
+      "originalPrice": 399
+    },
+    {
+      "productId": 11,
+      "gender": 0,
+      "color": "淺灰粉",
+      "image": "https://s.lativ.com.tw/i/58797/58797011/5879701_500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/58797/58797011/5879701_48.jpg",
+      "description": "https://s.lativ.com.tw/i/58797/58797_A_01.jpg",
+      "originalPrice": 399
+    },
+    {
+      "productId": 12,
+      "gender": 0,
+      "color": "白色",
+      "image": "https://s.lativ.com.tw/i/58602/58602011/5860201_500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/58602/58602011/5860201_48.jpg",
+      "description": "https://s.lativ.com.tw/i/58602/58602_A_01.jpg",
+      "originalPrice": 399
+    },
+    {
+      "productId": 13,
+      "gender": 0,
+      "color": "黑色",
+      "image": "https://s.lativ.com.tw/i/58606/58606011/5860601_500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/58606/58606011/5860601_48.jpg",
+      "description": "https://s.lativ.com.tw/i/58606/5860601_A_01.jpg",
+      "originalPrice": 399
+    },
+    {
+      "productId": 14,
+      "gender": 0,
+      "color": "復古紅",
+      "image": "https://s.lativ.com.tw/i/58609/58609011/5860901_500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/58609/58609011/5860901_48.jpg",
+      "description": "https://s.lativ.com.tw/i/58609/5860901_A_01.jpg",
+      "originalPrice": 399
+    },
+    {
+      "productId": 15,
+      "gender": 0,
+      "color": "黑色",
+      "image": "https://s.lativ.com.tw/i/59273/59273011/5927301_500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/59273/59273011/5927301_48.jpg",
+      "description": "https://s.lativ.com.tw/i/59273/59273_A_01.jpg",
+      "originalPrice": 499
+    },
+    {
+      "productId": 16,
+      "gender": 0,
+      "color": "淺黃",
+      "image": "https://s.lativ.com.tw/i/58996/58996011/5899601_500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/58996/58996011/5899601_48.jpg",
+      "description": "https://s.lativ.com.tw/i/58996/5899601_A_01.jpg",
+      "originalPrice": 499
+    },
+    {
+      "productId": 17,
+      "gender": 0,
+      "color": "深灰藍",
+      "image": "https://s.lativ.com.tw/i/58605/58605011/5860501_500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/58605/58605011/5860501_48.jpg",
+      "description": "https://s.lativ.com.tw/i/58605/5860501_A_01.jpg",
+      "originalPrice": 499
+    },
+    {
+      "productId": 18,
+      "gender": 0,
+      "color": "黑色",
+      "image": "https://s.lativ.com.tw/i/58611/58611011/5861101_500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/58611/58611011/5861101_48.jpg",
+      "description": "https://s.lativ.com.tw/i/58611/5861101_A_01.jpg",
+      "originalPrice": 399
+    },
+    {
+      "productId": 19,
+      "gender": 0,
+      "color": "深灰藍",
+      "image": "https://s.lativ.com.tw/i/58783/58783021/5878302_500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/58783/58783021/5878302_48.jpg",
+      "description": "https://s.lativ.com.tw/i/58783/58783_A_01_0.jpg",
+      "originalPrice": 399
+    },
+    {
+      "productId": 20,
+      "gender": 0,
+      "color": "淺米",
+      "image": "https://s.lativ.com.tw/i/61073/61073011/6107301_500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/61073/61073011/6107301_48.jpg",
+      "description": "https://s.lativ.com.tw/i/61073/6107301_A_01.jpg",
+      "originalPrice": 399
+    },
+    {
+      "productId": 21,
+      "gender": 0,
+      "color": "米色",
+      "image": "https://s.lativ.com.tw/i/59272/59272011/5927201_500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/59272/59272011/5927201_48.jpg",
+      "description": "https://s.lativ.com.tw/i/59272/5927204_A_01.jpg",
+      "originalPrice": 399
+    },
+    {
+      "productId": 21,
+      "gender": 0,
+      "color": "灰紫",
+      "image": "https://s.lativ.com.tw/i/59272/59272021/5927202_500.jpg",
+      "colorImage": "https://s3.lativ.com.tw/i/59272/59272021/5927202_48.jpg",
+      "description": "https://s.lativ.com.tw/i/59272/5927204_A_01.jpg",
+      "originalPrice": 399
+    },
+    {
+      "productId": 21,
+      "gender": 0,
+      "color": "灰藍",
+      "image": "https://s.lativ.com.tw/i/59272/59272031/5927203_500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/59272/59272031/5927203_48.jpg",
+      "description": "https://s.lativ.com.tw/i/59272/5927204_A_01.jpg",
+      "originalPrice": 399
+    },
+    {
+      "productId": 22,
+      "gender": 0,
+      "color": "灰綠",
+      "image": "https://s.lativ.com.tw/i/58329/58329011/5832901_500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/58329/58329011/5832901_48.jpg",
+      "description": "https://s.lativ.com.tw/i/58329/58329_A_01_1.jpg",
+      "originalPrice": 399
+    },
+    {
+      "productId": 22,
+      "gender": 0,
+      "color": "深灰粉",
+      "image": "https://s.lativ.com.tw/i/58329/58329021/5832902_500.jpg",
+      "colorImage": "https://s3.lativ.com.tw/i/58329/58329021/5832902_48.jpg",
+      "description": "https://s.lativ.com.tw/i/58329/58329_A_01_1.jpg",
+      "originalPrice": 499
+    },
+    {
+      "productId": 23,
+      "gender": 0,
+      "color": "灰卡其",
+      "image": "https://s.lativ.com.tw/i/58610/58610021/5861002_500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/58610/58610021/5861002_48.jpg",
+      "description": "https://s.lativ.com.tw/i/58610/58610_A_01_0.jpg",
+      "originalPrice": 499
+    },
+    {
+      "productId": 24,
+      "gender": 0,
+      "color": "淺粉",
+      "image": "https://s.lativ.com.tw/i/58993/58993011/5899301_500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/58777/58777011/5877701_48.jpg",
+      "description": "https://s.lativ.com.tw/i/58993/5899301_A_01.jpg",
+      "originalPrice": 350    
+    },
+    {
+      "productId": 25,
+      "gender": 0,
+      "color": "淺灰綠",
+      "image": "https://s.lativ.com.tw/i/58794/58794011/5879401_500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/58794/58794011/5879401_48.jpg",
+      "description": "https://s.lativ.com.tw/i/58794/58794_A_01_0.jpg",
+      "originalPrice": 399
+    },
+    {
+      "productId": 26,
+      "gender": 0,
+      "color": "黑色",
+      "image": "https://s.lativ.com.tw/i/58717/58717011/5871701_500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/58717/58717011/5871701_48.jpg",
+      "description": "https://s.lativ.com.tw/i/58717/58717_A_01_0.jpg",
+      "originalPrice": 399
+    },
+    {
+      "productId": 27,
+      "gender": 0,
+      "color": "黑色",
+      "image": "https://s.lativ.com.tw/i/58594/58594011/5859401_500.jpg",
+      "colorImage": "https://s4.lativ.com.tw/i/58594/58594011/5859401_48.jpg",
+      "description": "https://s.lativ.com.tw/i/58594/5859401_A_01.jpg",
+      "originalPrice": 350
+    }
+  ]
+}
+
