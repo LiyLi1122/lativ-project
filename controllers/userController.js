@@ -17,13 +17,12 @@ module.exports = {
     */
 
     try {
-      console.log('-------------- /signin ------------ ')
+      console.log('-------------- /signin -------------- ')
       // delete private info
       delete req.user.password
       // sign a HS256 algorithm token
       const token = jwt.sign(req.user, process.env.JWT_KEY, { expiresIn: '30d' })
       res.status(200).json({
-        status: 'Success',
         token: token,
         data: req.user
       })
@@ -48,10 +47,10 @@ module.exports = {
     */
 
     try {
-      console.log('-------------- /signup ------------ ')
+      console.log('-------------- /signup -------------- ')
       const err = new Error()
       const { name, email, password } = req.body
-      const [user, created] = await User.findOrCreate({
+      const [_user, created] = await User.findOrCreate({
         where: { email },
         defaults: { name, email, password: bcryptjs.hashSync(password, 10) }
       })
@@ -60,8 +59,7 @@ module.exports = {
         err.message = '帳號已存在，請登入'
         throw err
       }
-      res.json({
-        Status: 'Success',
+      res.status(201).json({
         Message: '註冊成功，請先登入'
       })
     } catch (error) {

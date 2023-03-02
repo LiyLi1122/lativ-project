@@ -16,10 +16,9 @@ module.exports = {
           updated_at: new Date()
         }
       }))
-      console.log('Seed created done!')
-      process.exit()
+      console.log('---user seeders done---')
     } catch (error) {
-      console.log('Error: ', error)
+      console.log(error)
     }
   },
 

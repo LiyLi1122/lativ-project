@@ -1,10 +1,13 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
 
 const swaggerAutogen = require('swagger-autogen')()
 const doc = {
   info: {
     title: 'Lativ-Project apis'
   },
-  host: '18.179.178.60:3000',
+  host: process.env.HOST,
   schemes: ['http', 'https']
 }
 

@@ -6,27 +6,26 @@
  */
 
 function apiErrorHandler (error, req, res, next) {
-  const DEFAULT_STATUS = 'Error'
-  const DEFAULT_STATUS_CODE = 500
+  try {
+    const defaultStatusCode = 500
+    const errorStatusCode = error.statusCode
+    const errorMessage = error.message
 
-  const errorStatus = 'Fail'
-  const errorStatusCode = error.statusCode
-  const errorMessage = error.message
-
-  switch (errorStatusCode) {
-    case 400 :
-    case 401 :
-      res.status(errorStatusCode).json({
-        Status: errorStatus,
-        Message: errorMessage
-      })
-      break
-    default:
-      res.status(DEFAULT_STATUS_CODE).json({
-        Status: DEFAULT_STATUS,
-        Message: error
-      })
+    switch (errorStatusCode) {
+      case 400:
+      case 401:
+        res.status(errorStatusCode).json({
+          Message: errorMessage
+        })
+        break
+      default:
+        res.status(defaultStatusCode).json({
+          Message: error
+        })
+    }
+  } catch (error) {
+    console.log(error)
+    next(error)
   }
-  next(error)
 }
 module.exports = apiErrorHandler

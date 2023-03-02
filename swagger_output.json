@@ -5,7 +5,7 @@
     "version": "1.0.0",
     "description": ""
   },
-  "host": "18.179.178.60:3000",
+  "host": "localhost:3000",
   "basePath": "/",
   "schemes": [
     "http",
@@ -114,6 +114,120 @@
         ],
         "description": "",
         "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/products": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "description": "頁碼(預設為 0)",
+            "type": "string"
+          },
+          {
+            "name": "mainCategory",
+            "in": "query",
+            "description": "輸入主類別(預設為 0 ，女生為 0、男生為 1)",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/products/subcategories/{id}": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "description": "頁碼(預設為 0)",
+            "type": "string"
+          },
+          {
+            "name": "mainCategory",
+            "in": "query",
+            "description": "輸入主類別(預設為 0 ，女生為 0、男生為 1)",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/products/search": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "description": "頁碼(預設為 0)",
+            "type": "string"
+          },
+          {
+            "name": "mainCategory",
+            "in": "query",
+            "description": "輸入主類別(預設為 0 ，女生為 0、男生為 1)",
+            "type": "string"
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/products/{id}": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string",
+            "description": "取得特定(product id)商品詳細內容"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK"

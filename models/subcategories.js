@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate (models) {
       // define association here
+      Subcategories.hasMany(models.Products, { foreignKey: 'subcategoryId' })
     }
   }
   Subcategories.init({
@@ -24,10 +25,6 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
       type: DataTypes.STRING
-    },
-    categoryId: {
-      allowNull: false,
-      type: DataTypes.INTEGER
     }
   }, {
     sequelize,

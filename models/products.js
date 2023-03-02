@@ -3,17 +3,16 @@ const {
   Model
 } = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
-  class Product extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+  class Products extends Model {
+  // The `models/index` file will call this method automatically.
     static associate (models) {
       // define association here
+      Products.hasMany(models.Duplications, { foreignKey: 'productId' })
+      Products.belongsTo(models.Subcategories, { foreignKey: 'subcategoryId' })
+      Products.belongsTo(models.Categories, { foreignKey: 'categoryId' })
     }
   }
-  Product.init({
+  Products.init({
     id: {
       allowNull: false,
       autoIncrement: true,
@@ -24,6 +23,18 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true,
       type: DataTypes.STRING
+    },
+    tag: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    subcategoryId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    categoryId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
   }, {
     sequelize,
@@ -31,5 +42,5 @@ module.exports = (sequelize, DataTypes) => {
     tableName: 'Products',
     underscored: true
   })
-  return Product
+  return Products
 }

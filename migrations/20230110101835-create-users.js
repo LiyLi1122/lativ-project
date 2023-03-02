@@ -1,9 +1,12 @@
 'use strict'
+
+const console = require('eslint-plugin-node/lib/rules/prefer-global/console')
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
     try {
-      await queryInterface.createTable('Categories', {
+      await queryInterface.createTable('Users', {
         id: {
           allowNull: false,
           autoIncrement: true,
@@ -12,7 +15,21 @@ module.exports = {
         },
         name: {
           allowNull: false,
+          type: Sequelize.STRING
+        },
+        email: {
+          allowNull: false,
           unique: true,
+          type: Sequelize.STRING
+        },
+        password: {
+          allowNull: false,
+          type: Sequelize.STRING
+        },
+        phone: {
+          type: Sequelize.STRING
+        },
+        address: {
           type: Sequelize.STRING
         },
         created_at: {
@@ -30,7 +47,7 @@ module.exports = {
   },
   async down (queryInterface, Sequelize) {
     try {
-      await queryInterface.dropTable('Categories')
+      await queryInterface.dropTable('Users')
     } catch (error) {
       console.log(error)
     }

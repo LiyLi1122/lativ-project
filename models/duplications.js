@@ -4,13 +4,10 @@ const {
 } = require('sequelize')
 module.exports = (sequelize, DataTypes) => {
   class Duplications extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+    // The `models/index` file will call this method automatically.
     static associate (models) {
       // define association here
+      Duplications.belongsTo(models.Products, { foreignKey: 'productId' })
     }
   }
   Duplications.init({
@@ -32,6 +29,22 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
+    originalPrice: {
+      allowNull: false,
+      type: DataTypes.INTEGER
+    },
+    description: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    image: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
+    colorImage: {
+      allowNull: false,
+      type: DataTypes.STRING
+    },
     stock: {
       type: DataTypes.INTEGER,
       allowNull: false
@@ -39,16 +52,20 @@ module.exports = (sequelize, DataTypes) => {
     gender: {
       type: DataTypes.TINYINT,
       allowNull: false
-    },
-    subcategoryId: {
-      type: DataTypes.INTEGER,
-      allowNull: false
     }
   }, {
     sequelize,
     modelName: 'Duplications',
     tableName: 'Duplications',
     underscored: true
+  },
+  {
+    indexes: [
+      {
+        unique: true,
+        fields: ['productId', 'color', 'size']
+      }
+    ]
   })
   return Duplications
 }

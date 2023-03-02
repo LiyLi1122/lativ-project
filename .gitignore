@@ -1,6 +1,9 @@
 # files
 node_modules
 .env
+duplicationRawData.json
+productRawData.json
+swagger_output.json
 
 # utils
 .eslintignore
