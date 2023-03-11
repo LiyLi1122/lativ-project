@@ -7,7 +7,7 @@ const passportJWT = require('passport-jwt')
 const JWTStrategy = passportJWT.Strategy
 const ExtractJWT = passportJWT.ExtractJwt
 const bcryptjs = require('bcryptjs')
-const { User } = require('../models')
+const { Users } = require('../models')
 
 const jwtOptions = {
   // commend to extract token from request
@@ -21,6 +21,7 @@ passport.use(new LocalStrategy(
   },
   async function (email, password, done) {
     try {
+      console.log(`--- passport.js email: ${email}, password:${password} ---`)
       const err = new Error()
       if (!email || !password) {
         err.statusCode = 401
@@ -28,7 +29,7 @@ passport.use(new LocalStrategy(
         throw err
       }
 
-      const user = await User.findOne({ where: { email } })
+      const user = await Users.findOne({ where: { email } })
       if (!user) {
         err.statusCode = 400
         err.message = '帳戶不存在'
@@ -42,6 +43,7 @@ passport.use(new LocalStrategy(
       }
       done(null, user.toJSON())
     } catch (error) {
+      console.log(error)
       done(error)
     }
   }))
@@ -49,10 +51,13 @@ passport.use(new LocalStrategy(
 // register JWT strategy in passport
 passport.use(new JWTStrategy(jwtOptions, async (jwtpayload, done) => {
   try {
-    const user = await User.findByPk(jwtpayload.id)
+    console.log(`--- passport.js jwtpayload: ${jwtpayload} ---`)
+    const user = await Users.findByPk(jwtpayload.id)
+
     if (!user) done(null, false)
     done(null, user.toJSON())
   } catch (error) {
+    console.log(error)
     done(error)
   }
 }))
@@ -65,14 +70,16 @@ passport.use(new FacebookStrategy({
   profileFields: ['displayName', 'email']
 }, async (accessToken, refreshToken, profile, done) => {
   try {
+    console.log(`--- passport.js profile: ${profile} ---`)
     const { name, email } = profile._json
     const password = Math.random().toString(36).slice(-8)
-    const [user] = await User.findOrCreate({
+    const [user] = await Users.findOrCreate({
       where: { email },
       defaults: { name, email, password: bcryptjs.hashSync(password, 10) }
     })
     if (user) done(null, user.toJSON())
   } catch (error) {
+    console.log(error)
     done(error)
   }
 }))

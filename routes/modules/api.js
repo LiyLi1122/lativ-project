@@ -7,6 +7,7 @@ const signupValidator = require('../../middleware/signup-validator')
 const userController = require('../../controllers/userController')
 const productController = require('../../controllers/productController')
 const { tokenAuth } = require('../../middleware/auth')
+const shoppingCartController = require('../../controllers/shoppingCartController')
 
 // users
 router.post('/users/signup', signupValidator, userController.signup)
@@ -21,6 +22,16 @@ router.get('/index', tokenAuth, (req, res, next) => {
     next(error)
   }
 })
+
+// payment
+// 前往結帳的按鈕
+router.get('/shoppingCart', tokenAuth, shoppingCartController.getShoppingCart)
+// 最後追加購物車內容 & 確認
+router.post('/shoppingCart', tokenAuth, shoppingCartController.shoppingCartCheck)
+// 接綠界金流結帳後的 ReturnURL
+router.post('/shoppingCart/callback', shoppingCartController.getPaymentCallback)
+// 接綠界金流 OrderResultURL 給前端 res.json (for 要自訂付款成功頁面)
+// router.post('/shoppingCart/result', shoppingCartController.getPaymentResult)
 
 // products
 router.get('/products', tokenAuth, productController.getProducts)

@@ -1,4 +1,4 @@
-const { sequelize, Products, Categories, Subcategories, Duplications } = require('../models')
+const { sequelize, Products, Subcategories, Duplications } = require('../models')
 const { Op } = require('sequelize')
 
 module.exports = {
@@ -64,7 +64,8 @@ module.exports = {
     */
     try {
       const { id } = req.params
-      const matchList = new Set()
+      const idMatchList = new Set()
+      let colorMatchList
       const data = {}
 
       console.log('--- /products/:id, id 為---', id)
@@ -92,18 +93,20 @@ module.exports = {
       // 將資料庫資料整理成目標內容
       for (const result of results) {
         // 處理前半部: 用 productId 檢查保留唯一值
-        if (!matchList.has(result.productId)) {
-          matchList.add(result.productId)
+        if (!idMatchList.has(result.productId)) {
+          idMatchList.add(result.productId)
           data.id = result.id
           data.name = result.name
           data.originalPrice = result.originalPrice
           data.discountPrice = Math.round(result.originalPrice * 0.8)
           data.description = result.description
           data.infoList = []
+          // 在新增 productId 時 colorList 就要歸零
+          colorMatchList = new Set()
         }
         // 處理中半部: 用 color 檢查保留唯一值
-        if (!matchList.has(result.color)) {
-          matchList.add(result.color)
+        if (!colorMatchList.has(result.color)) {
+          colorMatchList.add(result.color)
           // 不存在就下面內容
           data.infoList.push({
             color: result.color,
@@ -172,17 +175,17 @@ module.exports = {
           'image'],
         where: { gender },
         include:
-          {
-            model: Products,
-            attributes: [],
-            where: {
-              Subcategory_id: id
-            },
-            include: {
-              model: Subcategories,
-              attributes: []
-            }
+        {
+          model: Products,
+          attributes: [],
+          where: {
+            Subcategory_id: id
           },
+          include: {
+            model: Subcategories,
+            attributes: []
+          }
+        },
         offset,
         limit,
         raw: true

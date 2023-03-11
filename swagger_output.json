@@ -64,8 +64,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "description": "OK"
+          "201": {
+            "description": "Created"
           }
         }
       }
@@ -119,6 +119,100 @@
             "description": "OK"
           }
         }
+      }
+    },
+    "/api/shoppingCart": {
+      "get": {
+        "tags": [
+          "ShoppingCart"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "productQueryList",
+            "in": "query",
+            "description": "根據提供的 product id 字串列表，回傳更詳盡的 product id 內容",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "ShoppingCart"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "cartList",
+            "in": "body",
+            "description": "傳遞結帳前購物車最終的商品列表，點選後會回傳綠界 html",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "cartList": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "productId": {
+                        "type": "number",
+                        "example": 1
+                      },
+                      "size": {
+                        "type": "string",
+                        "example": "S"
+                      },
+                      "color": {
+                        "type": "string",
+                        "example": "磚桔"
+                      },
+                      "piece": {
+                        "type": "string",
+                        "example": "2"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shoppingCart/callback": {
+      "post": {
+        "tags": [
+          "ShoppingCart"
+        ],
+        "description": "給綠界 callback 的路由，經過此路由會在客戶端產生預設付款成功的 UI",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "CheckMacValue": {
+                  "example": "any"
+                },
+                "RtnCode": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {}
       }
     },
     "/api/products": {
@@ -203,6 +297,7 @@
           {
             "name": "keyword",
             "in": "query",
+            "description": "輸入關鍵字",
             "type": "string"
           }
         ],
