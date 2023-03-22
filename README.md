@@ -13,7 +13,8 @@
 
 <h2>API 文件</h2>   
 
-[ API 文件 ](http://localhost:3000/api-doc/)
+* [ API 文件 ](http://54.199.37.224:3000/api-doc/)  
+* Servers 欄位中選擇 AWS Server
 
 
 <h2>ERD</h2> 
