@@ -2,8 +2,8 @@
 node_modules
 .env
 # swagger
-swagger_output.json 
-swagger.js
+# swagger_output.json 
+# swagger.js
 
 # utils
 .eslintignore

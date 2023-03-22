@@ -1,0 +1,477 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Lativ-Project apis",
+    "description": "請先登入取得 Token",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/",
+      "description": "Local Server"
+    },
+    {
+      "url": "http://54.199.37.224:3000/",
+      "description": "AWS Server"
+    }
+  ],
+  "paths": {
+    "/test": {
+      "get": {
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/users/signup": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "201": {
+            "description": "註冊成功"
+          },
+          "400": {
+            "description": "缺少註冊必要資料/資料格式錯誤/已經註冊過"
+          },
+          "500": {
+            "description": "伺服器錯誤"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "checkPassword": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "email",
+                  "password",
+                  "checkPassword"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/users/signin": {
+      "post": {
+        "tags": [
+          "User"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "成功登入"
+          },
+          "400": {
+            "description": "缺少登入必要資料/輸入錯誤資料"
+          },
+          "500": {
+            "description": "伺服器錯誤"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email",
+                  "password"
+                ]
+              },
+              "example": {
+                "email": "test1@test.com",
+                "password": "123"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/index": {
+      "get": {
+        "tags": [
+          "Index"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/shoppingCart": {
+      "get": {
+        "tags": [
+          "ShoppingCart"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "productQueryList",
+            "required": true,
+            "in": "query",
+            "description": "根據提供的 product id 字串表，回傳更詳盡的 product id 內容",
+            "default": "1,2",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功回傳資料"
+          },
+          "400": {
+            "description": "缺少必填資料"
+          },
+          "401": {
+            "description": "尚未登入"
+          },
+          "500": {
+            "description": "伺服器錯誤"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
+      },
+      "post": {
+        "tags": [
+          "ShoppingCart"
+        ],
+        "description": "",
+        "produces": [
+          "text/html"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "成功回傳資料"
+          },
+          "400": {
+            "description": "缺少必填資料"
+          },
+          "401": {
+            "description": "尚未登入"
+          },
+          "500": {
+            "description": "伺服器錯誤"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cartList": {
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "cartList"
+                ]
+              },
+              "example": {
+                "cartList": [
+                  {
+                    "productId": 1,
+                    "size": "S",
+                    "color": "黑色",
+                    "piece": "1"
+                  },
+                  {
+                    "productId": 1,
+                    "size": "S",
+                    "color": "磚桔",
+                    "piece": "2"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/shoppingCart/callback": {
+      "post": {
+        "tags": [
+          "ShoppingCart"
+        ],
+        "description": "給綠界 callback 的路由，經過此路由會在客戶端產生預設付款成功的 UI",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "成功回傳資料"
+          },
+          "500": {
+            "description": "伺服器錯誤"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "CheckMacValue": {
+                    "example": "any"
+                  },
+                  "RtnCode": {
+                    "example": "any"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/products": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "description": "頁碼，一次回傳 24 筆資料",
+            "default": "0",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mainCategory",
+            "in": "query",
+            "description": "輸入主類別(女生為 0、男生為 1)",
+            "default": "0",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功回傳資料"
+          },
+          "500": {
+            "description": "伺服器錯誤"
+          }
+        },
+        "security": []
+      }
+    },
+    "/api/products/subcategories/{id}": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "特定類型商品 id"
+          },
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "description": "頁碼，一次回傳 24 筆資料",
+            "default": "0",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mainCategory",
+            "in": "query",
+            "description": "輸入主類別(女生為 0、男生為 1)",
+            "default": "0",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功回傳資料"
+          },
+          "400": {
+            "description": "缺少必填資料"
+          },
+          "500": {
+            "description": "伺服器錯誤"
+          }
+        }
+      }
+    },
+    "/api/products/search": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "pageIndex",
+            "in": "query",
+            "description": "頁碼，一次回傳 24 筆資料",
+            "default": "0",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "mainCategory",
+            "in": "query",
+            "description": "輸入主類別(女生為 0、男生為 1)",
+            "default": "0",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "keyword",
+            "in": "query",
+            "description": "輸入關鍵字",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功回傳資料"
+          },
+          "400": {
+            "description": "缺少必填資料"
+          },
+          "500": {
+            "description": "伺服器錯誤"
+          }
+        }
+      }
+    },
+    "/api/products/{id}": {
+      "get": {
+        "tags": [
+          "Products"
+        ],
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "取得特定 (product id) 商品詳細內容"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "成功回傳資料"
+          },
+          "400": {
+            "description": "缺少必填資料"
+          },
+          "500": {
+            "description": "伺服器錯誤"
+          }
+        }
+      }
+    },
+    "/auth/facebook": {
+      "get": {
+        "tags": [
+          "Facebook"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {}
+      }
+    },
+    "/auth/facebook/callback": {
+      "get": {
+        "tags": [
+          "Facebook"
+        ],
+        "description": "",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    }
+  }
+}
