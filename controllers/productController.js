@@ -11,21 +11,20 @@ module.exports = {
     /* #swagger.parameters['pageIndex'] =
       {
         in: 'query',
-        description: '頁碼(預設為 0)'
+        description: '頁碼，一次回傳 24 筆資料',
+        default: '0'
       }
     */
     /* #swagger.parameters['mainCategory'] =
       {
         in: 'query',
-        description: '輸入主類別(預設為 0 ，女生為 0、男生為 1)'
+        description: '輸入主類別(女生為 0、男生為 1)',
+        default: '0'
       }
     */
-    /* #swagger.security = [
-        {
-          "bearerAuth": []
-        }
-      ]
-     */
+    // #swagger.responses[200] = { description: '成功回傳資料' }
+    // #swagger.responses[500] = { description: '伺服器錯誤' }
+
     try {
       const limit = 24
       const offset = req.query.pageIndex ? Number(req.query.pageIndex) * limit : 0
@@ -53,7 +52,6 @@ module.exports = {
         raw: true
       })
 
-      console.log('--- /products, results.length 為 ---', results.length)
       console.log('--- /products, results 為 ---', results)
 
       res.status(200).json({ data: results })
@@ -63,22 +61,31 @@ module.exports = {
     }
   },
   getProduct: async (req, res, next) => {
-    // 取得特定(product id)商品詳細內容
+    // 取得特定 (product id) 商品詳細內容
     // #swagger.tags = ['Products']
     /* #swagger.parameters['id'] =
       {
         in: 'path',
-        description: '取得特定(product id)商品詳細內容'
+        description: '取得特定 (product id) 商品詳細內容'
       }
     */
+    // #swagger.responses[200] = { description: '成功回傳資料' }
+    // #swagger.responses[400] = { description: '缺少必填資料' }
+    // #swagger.responses[500] = { description: '伺服器錯誤' }
     try {
       const { id } = req.params
       const idMatchList = new Set()
       const discount = 0.8
       let colorMatchList
       const data = {}
+      const err = new Error()
 
       console.log('--- /products/:id, id 為---', id)
+      if (!id) {
+        err.statusCode = 400
+        err.message = 'id 未輸入'
+        throw err
+      }
       // 撈取資料
       const results = await Products.findAll({
         where: { id },
@@ -136,8 +143,7 @@ module.exports = {
           return info
         })
       }
-      console.log('--- /products/:id, result 為 ---', results)
-      console.log('--- /products/:id, result.length 為 ---', results.length)
+
       console.log('--- /products/:id, data 為 ---', data)
 
       res.status(200).json({ data })
@@ -147,20 +153,31 @@ module.exports = {
     }
   },
   getTypeProduct: async (req, res, next) => {
-    // 提供特定類型(subcategory id)商品簡略資料
+    // 提供特定類型 (subcategory id) 商品簡略資料
     // #swagger.tags = ['Products']
+    /* #swagger.parameters['id'] =
+      {
+        in: 'path',
+        description: '特定類型商品 id',
+      }
+    */
     /* #swagger.parameters['pageIndex'] =
       {
         in: 'query',
-        description: '頁碼(預設為 0)'
+        description: '頁碼，一次回傳 24 筆資料',
+        default: '0'
       }
     */
     /* #swagger.parameters['mainCategory'] =
       {
         in: 'query',
-        description: '輸入主類別(預設為 0 ，女生為 0、男生為 1)'
+        description: '輸入主類別(女生為 0、男生為 1)',
+        default: '0'
       }
     */
+    // #swagger.responses[200] = { description: '成功回傳資料' }
+    // #swagger.responses[400] = { description: '缺少必填資料' }
+    // #swagger.responses[500] = { description: '伺服器錯誤' }
 
     try {
       const { id } = req.params
@@ -170,9 +187,16 @@ module.exports = {
       const offset = pageIndex ? Number(pageIndex) * limit : 0
       const gender = mainCategory || 0
       const data = {}
+      const err = new Error()
       const matchList = new Set()
 
       console.log(`--- /products/subcategories/:id, id 為 ${id} | page 為 ${req.query.page} | offset 為 ${offset} | limit 為 ${limit} | gender 為 ${gender} ---`)
+
+      if (!id) {
+        err.statusCode = 400
+        err.message = 'id 未輸入'
+        throw err
+      }
 
       const results = await Duplications.findAll({
         attributes: [
@@ -232,7 +256,6 @@ module.exports = {
         })
       }
       console.log('--- /products/subcategories/id, results 為 ---', results)
-      console.log('--- /products/subcategories/id, results.length 為 ---', results.length)
 
       res.status(200).json({ data })
     } catch (error) {
@@ -245,21 +268,26 @@ module.exports = {
     /* #swagger.parameters['pageIndex'] =
       {
         in: 'query',
-        description: '頁碼(預設為 0)'
+        description: '頁碼，一次回傳 24 筆資料',
+        default: '0'
       }
     */
     /* #swagger.parameters['mainCategory'] =
       {
         in: 'query',
-        description: '輸入主類別(預設為 0 ，女生為 0、男生為 1)'
+        description: '輸入主類別(女生為 0、男生為 1)',
+        default: '0'
       }
     */
     /* #swagger.parameters['keyword'] =
       {
         in: 'query',
-        description: '輸入關鍵字'
+        description: '輸入關鍵字',
       }
     */
+    // #swagger.responses[200] = { description: '成功回傳資料' }
+    // #swagger.responses[400] = { description: '缺少必填資料' }
+    // #swagger.responses[500] = { description: '伺服器錯誤' }
     try {
       const { keyword, mainCategory, pageIndex } = req.query
       const limit = 24
@@ -319,7 +347,6 @@ module.exports = {
         }
       }
       console.log('--- /products/search, results 為 ---', results)
-      console.log('--- /products/search, results.length 為 ---', results.length)
 
       res.status(200).json({ data })
     } catch (error) {

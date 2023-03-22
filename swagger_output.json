@@ -1,27 +1,20 @@
-
 {
   "openapi": "3.0.0",
   "info": {
     "title": "Lativ-Project apis",
-    "version": "1.0.0",
-    "description": "123"
+    "description": "請先登入取得 Token",
+    "version": "1.0.0"
   },
-  "host": "localhost:3000",
-  "basePath": "/",
-  "schemes": [
-    "http",
-    "https"
-  ],
-  "components": {
-    "securitySchemes": {
-        "bearerAuth": {
-          "type": "http",
-          "scheme": "bearer",
-          "bearerFormat": "JWT"
-        }
+  "servers": [
+    {
+      "url": "http://localhost:3000/",
+      "description": "Local Server"
+    },
+    {
+      "url": "http://54.199.37.224:3000/",
+      "description": "AWS Server"
     }
-
-  },
+  ],
   "paths": {
     "/test": {
       "get": {
@@ -40,43 +33,46 @@
           "User"
         ],
         "description": "",
-        "parameters": [
-          {
-            "name": "obj",
-            "in": "body",
-            "description": "註冊",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string",
-                  "example": "Blake Well"
-                },
-                "email": {
-                  "type": "string",
-                  "example": "test1@test.com"
-                },
-                "password": {
-                  "type": "string",
-                  "example": "123"
-                },
-                "checkPassword": {
-                  "type": "string",
-                  "example": "123"
-                }
-              },
-              "required": [
-                "name",
-                "email",
-                "password",
-                "checkPassword"
-              ]
-            }
-          }
-        ],
+        "parameters": [],
         "responses": {
           "201": {
-            "description": "Created"
+            "description": "註冊成功"
+          },
+          "400": {
+            "description": "缺少註冊必要資料/資料格式錯誤/已經註冊過"
+          },
+          "500": {
+            "description": "伺服器錯誤"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  },
+                  "checkPassword": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "name",
+                  "email",
+                  "password",
+                  "checkPassword"
+                ]
+              }
+            }
           }
         }
       }
@@ -87,33 +83,42 @@
           "User"
         ],
         "description": "",
-        "parameters": [
-          {
-            "name": "obj",
-            "in": "body",
-            "description": "登入",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "email": {
-                  "type": "string",
-                  "example": "test1@test.com"
-                },
-                "password": {
-                  "type": "string",
-                  "example": "123"
-                }
-              },
-              "required": [
-                "email",
-                "password"
-              ]
-            }
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "成功登入"
+          },
+          "400": {
+            "description": "缺少登入必要資料/輸入錯誤資料"
+          },
+          "500": {
+            "description": "伺服器錯誤"
+          }
+        },
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "email",
+                  "password"
+                ]
+              },
+              "example": {
+                "email": "test1@test.com",
+                "password": "123"
+              }
+            }
           }
         }
       }
@@ -134,9 +139,6 @@
     },
     "/api/shoppingCart": {
       "get": {
-          "security": {
-            "bearerAuth": []
-          },
         "tags": [
           "ShoppingCart"
         ],
@@ -144,16 +146,34 @@
         "parameters": [
           {
             "name": "productQueryList",
+            "required": true,
             "in": "query",
-            "description": "根據提供的 product id 字串列表，回傳更詳盡的 product id 內容",
-            "type": "string"
+            "description": "根據提供的 product id 字串表，回傳更詳盡的 product id 內容",
+            "default": "1,2",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "成功回傳資料"
+          },
+          "400": {
+            "description": "缺少必填資料"
+          },
+          "401": {
+            "description": "尚未登入"
+          },
+          "500": {
+            "description": "伺服器錯誤"
           }
-        }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ]
       },
       "post": {
         "tags": [
@@ -163,45 +183,58 @@
         "produces": [
           "text/html"
         ],
-        "parameters": [
-          {
-            "name": "cartList",
-            "in": "body",
-            "description": "傳遞結帳前購物車最終的商品列表，點選後會回傳綠界 html",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "cartList": {
-                  "type": "array",
-                  "items": {
-                    "type": "object",
-                    "properties": {
-                      "productId": {
-                        "type": "number",
-                        "example": 1
-                      },
-                      "size": {
-                        "type": "string",
-                        "example": "S"
-                      },
-                      "color": {
-                        "type": "string",
-                        "example": "磚桔"
-                      },
-                      "piece": {
-                        "type": "string",
-                        "example": "2"
-                      }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        ],
+        "parameters": [],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "成功回傳資料"
+          },
+          "400": {
+            "description": "缺少必填資料"
+          },
+          "401": {
+            "description": "尚未登入"
+          },
+          "500": {
+            "description": "伺服器錯誤"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "cartList": {
+                    "type": "array"
+                  }
+                },
+                "required": [
+                  "cartList"
+                ]
+              },
+              "example": {
+                "cartList": [
+                  {
+                    "productId": 1,
+                    "size": "S",
+                    "color": "黑色",
+                    "piece": "1"
+                  },
+                  {
+                    "productId": 1,
+                    "size": "S",
+                    "color": "磚桔",
+                    "piece": "2"
+                  }
+                ]
+              }
+            }
           }
         }
       }
@@ -212,24 +245,37 @@
           "ShoppingCart"
         ],
         "description": "給綠界 callback 的路由，經過此路由會在客戶端產生預設付款成功的 UI",
-        "parameters": [
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "成功回傳資料"
+          },
+          "500": {
+            "description": "伺服器錯誤"
+          }
+        },
+        "security": [
           {
-            "name": "body",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "CheckMacValue": {
-                  "example": "any"
-                },
-                "RtnCode": {
-                  "example": "any"
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "CheckMacValue": {
+                    "example": "any"
+                  },
+                  "RtnCode": {
+                    "example": "any"
+                  }
                 }
               }
             }
           }
-        ],
-        "responses": {}
+        }
       }
     },
     "/api/products": {
@@ -242,19 +288,28 @@
           {
             "name": "pageIndex",
             "in": "query",
-            "description": "頁碼(預設為 0)",
-            "type": "string"
+            "description": "頁碼，一次回傳 24 筆資料",
+            "default": "0",
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": "mainCategory",
             "in": "query",
-            "description": "輸入主類別(預設為 0 ，女生為 0、男生為 1)",
-            "type": "string"
+            "description": "輸入主類別(女生為 0、男生為 1)",
+            "default": "0",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "成功回傳資料"
+          },
+          "500": {
+            "description": "伺服器錯誤"
           }
         },
         "security": []
@@ -271,24 +326,39 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string"
+            "schema": {
+              "type": "string"
+            },
+            "description": "特定類型商品 id"
           },
           {
             "name": "pageIndex",
             "in": "query",
-            "description": "頁碼(預設為 0)",
-            "type": "string"
+            "description": "頁碼，一次回傳 24 筆資料",
+            "default": "0",
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": "mainCategory",
             "in": "query",
-            "description": "輸入主類別(預設為 0 ，女生為 0、男生為 1)",
-            "type": "string"
+            "description": "輸入主類別(女生為 0、男生為 1)",
+            "default": "0",
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "成功回傳資料"
+          },
+          "400": {
+            "description": "缺少必填資料"
+          },
+          "500": {
+            "description": "伺服器錯誤"
           }
         }
       }
@@ -303,25 +373,39 @@
           {
             "name": "pageIndex",
             "in": "query",
-            "description": "頁碼(預設為 0)",
-            "type": "string"
+            "description": "頁碼，一次回傳 24 筆資料",
+            "default": "0",
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": "mainCategory",
             "in": "query",
-            "description": "輸入主類別(預設為 0 ，女生為 0、男生為 1)",
-            "type": "string"
+            "description": "輸入主類別(女生為 0、男生為 1)",
+            "default": "0",
+            "schema": {
+              "type": "string"
+            }
           },
           {
             "name": "keyword",
             "in": "query",
             "description": "輸入關鍵字",
-            "type": "string"
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "成功回傳資料"
+          },
+          "400": {
+            "description": "缺少必填資料"
+          },
+          "500": {
+            "description": "伺服器錯誤"
           }
         }
       }
@@ -337,13 +421,21 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "string",
-            "description": "取得特定(product id)商品詳細內容"
+            "schema": {
+              "type": "string"
+            },
+            "description": "取得特定 (product id) 商品詳細內容"
           }
         ],
         "responses": {
           "200": {
-            "description": "OK"
+            "description": "成功回傳資料"
+          },
+          "400": {
+            "description": "缺少必填資料"
+          },
+          "500": {
+            "description": "伺服器錯誤"
           }
         }
       }
@@ -370,6 +462,15 @@
             "description": "OK"
           }
         }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }

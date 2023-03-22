@@ -26,10 +26,10 @@ app.get('/test', (req, res) => {
   console.log('-------------- /test ------------ ')
   res.json('成功')
 })
-app.use('*', (req, res) => {
-  console.log('-------------- * ------------ ')
-  console.log(req)
-})
+// app.use('*', (req, res) => {
+//   console.log('-------------- * ------------ ')
+//   console.log(req)
+// })
 app.use(routes)
 
 app.listen(port, () => console.log(`app is listening ${port}`))

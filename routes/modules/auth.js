@@ -13,8 +13,8 @@ router.get('/facebook/callback', async (req, res, next) => {
   passport.authenticate('facebook', { session: false }, (error, user) => {
     if (error) next(error)
     /**
-   * 因為 passport 一定會新增一個使用者資料，若沒有回傳 user 物件，
-   * 就可能會是 facebook-developer 設定問題
+       * 因為 passport 一定會新增一個使用者資料，若沒有回傳 user 物件，
+       * 就可能會是 facebook-developer 設定問題
    */
     if (!user) next(error)
     req.user = user

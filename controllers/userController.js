@@ -5,19 +5,37 @@ const bcryptjs = require('bcryptjs')
 module.exports = {
   signin: async (req, res, next) => {
     // #swagger.tags = ['User']
-    /* #swagger.parameters['obj'] =
-      {
-        in: 'body',
-        description: '登入',
-        schema: {
-            $email: 'test1@test.com',
-            $password: '123',
-        }
-      }
-    */
+    /* #swagger.requestBody = {
+              required: true,
+              "@content": {
+                  "application/json": {
+                      schema: {
+                          type: "object",
+                          properties: {
+                              email: {
+                                  type: "string"
+                              },
+                              password: {
+                                  type: "string",
+                              }
+                          },
+                          required: ["email", "password"]
+                      },
+                      example: {
+                          email: "test1@test.com",
+                          password: "123"
+                      }
+                  }
+              }
+          }
+      */
+    // #swagger.responses[200] = { description: '成功登入' }
+    // #swagger.responses[400] = { description: '缺少登入必要資料/輸入錯誤資料' }
+    // #swagger.responses[500] = { description: '伺服器錯誤' }
 
     try {
-      console.log('-------------- /signin -------------- ')
+      console.log('---- /signin ---- ')
+
       // delete private info
       delete req.user.password
       // sign a HS256 algorithm token
@@ -33,21 +51,37 @@ module.exports = {
   },
   signup: async (req, res, next) => {
     // #swagger.tags = ['User']
-    /* #swagger.parameters['obj'] =
-      {
-        in: 'body',
-        description: '註冊',
-        schema: {
-            $name: 'Blake Well',
-            $email: 'test1@test.com',
-            $password: '123',
-            $checkPassword: '123'
-        }
+    /* #swagger.requestBody = {
+          required: true,
+          "@content": {
+              "application/json": {
+                  schema: {
+                      type: "object",
+                      properties: {
+                          name: {
+                              type: "string"
+                          },
+                          email: {
+                              type: "string"
+                          },
+                          password: {
+                              type: "string",
+                          },
+                          checkPassword: {
+                              type: "string",
+                          }
+                      },
+                      required: ["name", "email", "password", "checkPassword"]
+                  },
+              }
+          }
       }
-    */
-
+  */
+    // #swagger.responses[201] = { description: '註冊成功' }
+    // #swagger.responses[400] = { description: '缺少註冊必要資料/資料格式錯誤/已經註冊過' }
+    // #swagger.responses[500] = { description: '伺服器錯誤' }
     try {
-      console.log('-------------- /signup -------------- ')
+      console.log('---- /signup ---- ')
       const err = new Error()
       const { name, email, password } = req.body
       const [user, created] = await Users.findOrCreate({

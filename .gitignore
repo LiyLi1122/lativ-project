@@ -2,7 +2,8 @@
 node_modules
 .env
 # 居然無效
-./swagger_output.json 
+swagger_output.json 
+swagger.js
 
 # utils
 .eslintignore

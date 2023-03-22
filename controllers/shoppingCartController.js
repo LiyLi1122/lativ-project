@@ -8,28 +8,47 @@ module.exports = {
   shoppingCartCheck: async (req, res, next) => {
     // 確認最後購物車總價
     // #swagger.tags = ['ShoppingCart']
-    /* #swagger.parameters['cartList'] =
-      {
-        in: 'body',
-        description: '傳遞結帳前購物車最終的商品列表，點選後會回傳綠界 html',
-        schema: {
-          'cartList': [
-            {
-              "productId":1,
-              "size": "S",
-              "color":"黑色",
-              "piece": "1"
-            },
-            {
-              "productId":1,
-              "size": "S",
-              "color":"磚桔",
-              "piece": "2"
-            }
-          ]
+    /* #swagger.requestBody = {
+          required: true,
+          "@content": {
+              "application/json": {
+                  schema: {
+                      type: "object",
+                      properties: {
+                        cartList: {
+                          type: "array"
+                        }
+                      },
+                      required: ["cartList"]
+                  },
+                  example: {
+                      cartList: [
+                            {
+                              "productId":1,
+                              "size": "S",
+                              "color":"黑色",
+                              "piece": "1"
+                            },
+                            {
+                              "productId":1,
+                              "size": "S",
+                              "color":"磚桔",
+                              "piece": "2"
+                            }
+                          ]
+                  }
+              }
+          }
         }
-      }
     */
+    /* #swagger.security = [{
+      "bearerAuth": []
+      }]
+    */
+    // #swagger.responses[200] = { description: '成功回傳資料' }
+    // #swagger.responses[400] = { description: '缺少必填資料' }
+    // #swagger.responses[401] = { description: '尚未登入' }
+    // #swagger.responses[500] = { description: '伺服器錯誤' }
 
     console.log('--- post /shoppingCart ---')
     console.log('--- req.body ---', req.body)
@@ -106,9 +125,7 @@ module.exports = {
       // 根據 html 附上隱藏參數
       const html = createHtml.payment_client.aio_check_out_all(params)
 
-      console.log('\n html: \n', html)
-      res.setHeader('Content-Type', 'text/html')
-      res.send(html)
+      res.setHeader('Content-Type', 'text/html').send(html)
     } catch (error) {
       console.log(error)
       next(error)
@@ -117,18 +134,35 @@ module.exports = {
   getShoppingCart: async (req, res, next) => {
     // 根據參數取得詳細商品資料
     // #swagger.tags = ['ShoppingCart']
-    /* #swagger.parameters['productQueryList'] =
-      {
+    /* #swagger.parameters['productQueryList'] = {
+        required: true,
         in: 'query',
-        description: '根據提供的 product id 字串列表，回傳更詳盡的 product id 內容'
+        description: '根據提供的 product id 字串表，回傳更詳盡的 product id 內容',
+        default: '1,2'
       }
     */
+    /* #swagger.security = [{
+      "bearerAuth": []
+      }]
+    */
+    // #swagger.responses[200] = { description: '成功回傳資料' }
+    // #swagger.responses[400] = { description: '缺少必填資料' }
+    // #swagger.responses[401] = { description: '尚未登入' }
+    // #swagger.responses[500] = { description: '伺服器錯誤' }
 
     try {
       console.log('--- get /shoppingCart ---')
       console.log('--- req.query: ---', req.query)
 
       let { productQueryList } = req.query
+      const err = new Error()
+
+      if (!productQueryList) {
+        err.statusCode = 400
+        err.message = 'productQueryList 未輸入'
+        throw err
+      }
+
       // 清除重複 product id (可能為同商品、不同顏色、不同尺寸)
       // 因為使用者會再修改購物車，所以需要給予 product id 整個內容
       productQueryList = [...new Set(productQueryList.split(','))]
@@ -152,10 +186,10 @@ module.exports = {
             productId: productQueryList
           },
           include:
-            {
-              model: Products,
-              attributes: []
-            },
+          {
+            model: Products,
+            attributes: []
+          },
           raw: true
         })
       // 整理資料
@@ -200,11 +234,10 @@ module.exports = {
           return info
         })
       }
-      console.log('--- data: ---', dataList)
-      console.log('--- results: ---', results)
-      console.log('--- results.length: ---', results.length)
 
-      res.json(dataList)
+      console.log('--- data: ---', dataList)
+
+      res.status(200).json({ data: dataList })
     } catch (error) {
       console.log(error)
       next(error)
@@ -214,6 +247,12 @@ module.exports = {
     try {
       // #swagger.tags = ['ShoppingCart']
       // #swagger.description = '給綠界 callback 的路由，經過此路由會在客戶端產生預設付款成功的 UI'
+      /* #swagger.security = [{
+        "bearerAuth": []
+        }]
+      */
+      // #swagger.responses[200] = { description: '成功回傳資料' }
+      // #swagger.responses[500] = { description: '伺服器錯誤' }
       console.log('--- post /shoppingCart/callback ---')
       console.log('--- req.body: ---', req.body)
 
@@ -257,6 +296,7 @@ module.exports = {
         res.write('0|Err')
       }
     } catch (error) {
+      console.log(error)
       next(error)
     }
   }
