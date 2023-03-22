@@ -21,6 +21,4 @@ jobs:
         script: |
           cd ~/lativ-project
           git pull
-          pm2 start --only swagger
-          pm2 delete swagger
           pm2 restart app
