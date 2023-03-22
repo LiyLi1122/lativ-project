@@ -1,7 +1,7 @@
 # files
 node_modules
 .env
-# 居然無效
+# swagger
 swagger_output.json 
 swagger.js
 
