@@ -19,6 +19,6 @@ jobs:
         key: ${{ secrets.EC2_PRIVATE_KEY }}
         debug: true
         script: |
-          cd ~/lativ-project
+          cd lativ-project
           git pull
           pm2 restart app
