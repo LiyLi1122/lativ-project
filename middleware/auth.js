@@ -7,6 +7,7 @@ module.exports = {
       const err = new Error()
       // 500 server problem
       if (error) {
+        console.log(error)
         next(error)
       }
       // 客製化 error

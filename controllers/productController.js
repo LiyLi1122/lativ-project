@@ -5,6 +5,9 @@ module.exports = {
   getProducts: async (req, res, next) => {
     // 取得所有商品資料
     // #swagger.tags = ['Products']
+    /* #swagger.security = {
+        "bearerAuth": []
+    } */
     /* #swagger.parameters['pageIndex'] =
       {
         in: 'query',
@@ -17,6 +20,12 @@ module.exports = {
         description: '輸入主類別(預設為 0 ，女生為 0、男生為 1)'
       }
     */
+    /* #swagger.security = [
+        {
+          "bearerAuth": []
+        }
+      ]
+     */
     try {
       const limit = 24
       const offset = req.query.pageIndex ? Number(req.query.pageIndex) * limit : 0
@@ -65,6 +74,7 @@ module.exports = {
     try {
       const { id } = req.params
       const idMatchList = new Set()
+      const discount = 0.8
       let colorMatchList
       const data = {}
 
@@ -98,7 +108,7 @@ module.exports = {
           data.id = result.id
           data.name = result.name
           data.originalPrice = result.originalPrice
-          data.discountPrice = Math.round(result.originalPrice * 0.8)
+          data.discountPrice = Math.round(result.originalPrice * discount)
           data.description = result.description
           data.infoList = []
           // 在新增 productId 時 colorList 就要歸零
@@ -156,6 +166,7 @@ module.exports = {
       const { id } = req.params
       const { pageIndex, mainCategory } = req.query
       const limit = 24
+      const discount = 0.8
       const offset = pageIndex ? Number(pageIndex) * limit : 0
       const gender = mainCategory || 0
       const data = {}
@@ -212,7 +223,7 @@ module.exports = {
               productId: result.productId,
               productName: result.productName,
               originalPrice: result.originalPrice,
-              discountPrice: Math.round(result.originalPrice * 0.8),
+              discountPrice: Math.round(result.originalPrice * discount),
               image: result.image,
               colorImage: result.colorImage
             })
@@ -252,8 +263,12 @@ module.exports = {
     try {
       const { keyword, mainCategory, pageIndex } = req.query
       const limit = 24
+      const discount = 0.8
       const offset = pageIndex ? pageIndex * limit : 0
       const gender = mainCategory || 0
+      const data = []
+      let index = -1 // 因為最初會多加一次，所以要先扣掉
+      const matchList = new Set()
 
       console.log(`--- /products/search, keyword 為 ${keyword} | page 為 ${pageIndex} | offset 為 ${offset} | limit 為 ${limit} | gender 為 ${gender} ---`)
 
@@ -282,9 +297,6 @@ module.exports = {
         raw: true
       })
       // 用 image 區分，index 作為插入 image 的相關資料依據
-      const data = []
-      let index = -1 // 因為最初會多加一次，所以要先扣掉
-      const matchList = new Set()
       for (const result of results) {
         if (!matchList.has(result.image)) {
           matchList.add(result.image)
@@ -300,7 +312,7 @@ module.exports = {
             id: result.id,
             name: result.name,
             originalPrice: result.originalPrice,
-            discountPrice: Math.round(result.originalPrice * 0.8),
+            discountPrice: Math.round(result.originalPrice * discount),
             size: result.size,
             stock: result.stock
           })

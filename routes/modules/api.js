@@ -34,9 +34,9 @@ router.post('/shoppingCart/callback', shoppingCartController.getPaymentCallback)
 // router.post('/shoppingCart/result', shoppingCartController.getPaymentResult)
 
 // products
-router.get('/products', tokenAuth, productController.getProducts)
-router.get('/products/subcategories/:id', tokenAuth, productController.getTypeProduct)
-router.get('/products/search', tokenAuth, productController.searchProducts)
-router.get('/products/:id', tokenAuth, productController.getProduct)
+router.get('/products', productController.getProducts)
+router.get('/products/subcategories/:id', productController.getTypeProduct)
+router.get('/products/search', productController.searchProducts)
+router.get('/products/:id', productController.getProduct)
 
 module.exports = router

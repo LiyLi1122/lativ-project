@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const { User } = require('../models')
+const { Users } = require('../models')
 const bcryptjs = require('bcryptjs')
 
 module.exports = {
@@ -50,7 +50,7 @@ module.exports = {
       console.log('-------------- /signup -------------- ')
       const err = new Error()
       const { name, email, password } = req.body
-      const [_user, created] = await User.findOrCreate({
+      const [user, created] = await Users.findOrCreate({
         where: { email },
         defaults: { name, email, password: bcryptjs.hashSync(password, 10) }
       })

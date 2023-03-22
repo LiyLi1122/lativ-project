@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const crypto = require('crypto')
 const { Duplications, Products, sequelize } = require('../models')
 const { Op } = require('sequelize')
@@ -35,6 +37,7 @@ module.exports = {
     try {
       const { cartList } = req.body
       const deliveryFee = 60
+      const discount = 0.8
       let totalAmount = 0
       const results = await Duplications.findAll({
         attributes: ['productId', [sequelize.col('Product.name'), 'name'], 'color', 'size', 'originalPrice'],
@@ -55,17 +58,14 @@ module.exports = {
         raw: true
       })
 
-      console.log('--- results ---', results)
-
       // 根據 cartList 比對資料庫結果執行 -> 商品數量 * 商品價格
       cartList.forEach(cart => {
         for (const result of results) {
           if (result.productId === cart.productId && result.size === cart.size && result.color === cart.color) {
-            totalAmount += (Math.round(result.originalPrice * 0.8)) * cart.piece
+            totalAmount += (Math.round(result.originalPrice * discount)) * cart.piece
           }
         }
       })
-      console.log('--- totalAmount ---', totalAmount)
 
       const onTimeValue = () => {
         const date = new Date() // Fri Mar 10 2023 13:56:24 GMT+0800 (台北標準時間)
@@ -88,17 +88,16 @@ module.exports = {
       const EcpayPayment = require('../node_modules/ecpay_aio_nodejs/lib/ecpay_payment')
       const options = require('../node_modules/ecpay_aio_nodejs/conf/config-example')
       const params = {
-        MerchantTradeNo: 'lativTradeNo' + Math.random().toString(36).slice(-8), // 20 碼 uid
-        MerchantTradeDate: onTimeValue(), // ex: 2017/02/13 15:45:30
-        PaymentType: 'aio', // 規定固定為 aio
-        TotalAmount: String(totalAmount + deliveryFee), // 正整數 // + 運費
+        MerchantTradeNo: 'lativTradeNo' + Math.random().toString(36).slice(-8),
+        MerchantTradeDate: onTimeValue(),
+        PaymentType: 'aio',
+        TotalAmount: String(totalAmount + deliveryFee), // 總金額 + 運費 //需轉成字串
         TradeDesc: 'lativ 購物車車',
         ItemName: 'lativ 購物車',
         // 綠界在背後 post 到 ReturnURL 給後端內容為消費者付款結果參數
         ReturnURL: `${process.env.NGROK_URL}/api/shoppingCart/callback`,
-        // ALL 所以 html 裡可以選擇多種不同付款方式
         ChoosePayment: 'ALL',
-        EncryptType: '1', // 規定固定為 1
+        EncryptType: '1',
         ClientBackURL: `${process.env.NGROK_URL}/api/products`
       }
 
@@ -107,9 +106,9 @@ module.exports = {
       // 根據 html 附上隱藏參數
       const html = createHtml.payment_client.aio_check_out_all(params)
 
-      console.log('\n', html)
-
-      res.status(200).json(html)
+      console.log('\n html: \n', html)
+      res.setHeader('Content-Type', 'text/html')
+      res.send(html)
     } catch (error) {
       console.log(error)
       next(error)
@@ -162,8 +161,9 @@ module.exports = {
       // 整理資料
       const dataList = []
       const idMatchList = new Set()
+      const discount = 0.8
       let colorMatchList
-      let index = -1 // 針對
+      let index = -1 // 下面整理資料會多加一次，因此這邊要先減一次
 
       for (const result of results) {
         const { id, name, color, size, originalPrice, image, colorImage, stock } = result
@@ -174,13 +174,11 @@ module.exports = {
             id,
             name,
             originalPrice,
-            discountPrice: Math.round(originalPrice * 0.8),
+            discountPrice: Math.round(originalPrice * discount),
             infoList: []
           })
           index++
         }
-
-        console.log('--------- dataList ---------', dataList)
 
         if (!colorMatchList.has(color)) {
           colorMatchList.add(color)
@@ -237,8 +235,6 @@ module.exports = {
       checkMacValue = `HashKey=${hashKey}&${checkMacValue}HashIV=${hashIV}`
       checkMacValue = encodeURIComponent(checkMacValue).toLowerCase()
 
-      console.log('--- checkMacValue.toLowerCase() ---', checkMacValue)
-
       // 為符合綠界規定，特定字元轉換
       checkMacValue = checkMacValue
         .replace(/%20/g, '+')
@@ -252,12 +248,12 @@ module.exports = {
       // 根據綠界指定方式加密，16 進位編碼是常規設定，會跟 sha256 一起設定
       checkMacValue = crypto.createHash('sha256').update(checkMacValue).digest('hex').toUpperCase()
 
-      console.log('--- handmade checkMacValue: ---', checkMacValue)
-
       // 檢查綠界回傳內容，確認並回傳給綠界
       if (RtnCode === '1' && checkMacValue === CheckMacValue) {
+        console.log('Match')
         res.write('1|OK')
       } else {
+        console.log('UnMatch')
         res.write('0|Err')
       }
     } catch (error) {

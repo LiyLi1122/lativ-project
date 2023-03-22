@@ -1,9 +1,10 @@
+
 {
-  "swagger": "2.0",
+  "openapi": "3.0.0",
   "info": {
     "title": "Lativ-Project apis",
     "version": "1.0.0",
-    "description": ""
+    "description": "123"
   },
   "host": "localhost:3000",
   "basePath": "/",
@@ -11,6 +12,16 @@
     "http",
     "https"
   ],
+  "components": {
+    "securitySchemes": {
+        "bearerAuth": {
+          "type": "http",
+          "scheme": "bearer",
+          "bearerFormat": "JWT"
+        }
+    }
+
+  },
   "paths": {
     "/test": {
       "get": {
@@ -123,6 +134,9 @@
     },
     "/api/shoppingCart": {
       "get": {
+          "security": {
+            "bearerAuth": []
+          },
         "tags": [
           "ShoppingCart"
         ],
@@ -146,6 +160,9 @@
           "ShoppingCart"
         ],
         "description": "",
+        "produces": [
+          "text/html"
+        ],
         "parameters": [
           {
             "name": "cartList",
@@ -239,7 +256,8 @@
           "200": {
             "description": "OK"
           }
-        }
+        },
+        "security": []
       }
     },
     "/api/products/subcategories/{id}": {
