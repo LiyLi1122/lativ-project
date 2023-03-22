@@ -20,5 +20,5 @@ jobs:
         debug: true
         script: |
           cd lativ-project
-          git pull
-          pm2 restart app
+          # git pull
+          # pm2 restart app
