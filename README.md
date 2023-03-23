@@ -12,7 +12,8 @@
 * 可以前往搜尋列搜尋商品。
 
 <h2>專案紀錄</h2> 
-[請點這裡](https://rebrand.ly/r5m1ebl)
+
+[請點這裡](https://rebrand.ly/r5m1ebl/)
 
 <h2>API 文件</h2>   
 
