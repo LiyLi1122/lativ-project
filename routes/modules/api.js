@@ -13,16 +13,6 @@ const shoppingCartController = require('../../controllers/shoppingCartController
 router.post('/users/signup', signupValidator, userController.signup)
 router.post('/users/signin', passport.authenticate('local', { session: false }), userController.signin)
 
-// homepage
-router.get('/index', tokenAuth, (req, res, next) => {
-  // #swagger.tags = ['Index']
-  try {
-    res.json('使用成功')
-  } catch (error) {
-    next(error)
-  }
-})
-
 // payment
 // 前往結帳的按鈕
 router.get('/shoppingCart', tokenAuth, shoppingCartController.getShoppingCart)
