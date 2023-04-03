@@ -11,7 +11,7 @@
       "description": "Local Server"
     },
     {
-      "url": "http://3.112.36.24/",
+      "url": "http://3.112.36.24:3000/",
       "description": "AWS Server"
     }
   ],
@@ -124,6 +124,7 @@
             "required": true,
             "in": "query",
             "description": "根據提供的 product id 字串表，回傳更詳盡的 product id 內容",
+          
             "default": "1,2",
             "schema": {
               "type": "string"
