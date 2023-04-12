@@ -25,7 +25,7 @@ passport.use(new LocalStrategy(
       const err = new Error()
       if (!email || !password) {
         err.statusCode = 401
-        err.message = '要填寫'
+        err.message = '帳號密碼必填'
         throw err
       }
 

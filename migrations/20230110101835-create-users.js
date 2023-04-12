@@ -1,7 +1,5 @@
 'use strict'
 
-const console = require('eslint-plugin-node/lib/rules/prefer-global/console')
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
