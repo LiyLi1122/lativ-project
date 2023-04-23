@@ -125,7 +125,7 @@ module.exports = {
       // 根據 html 附上隱藏參數
       const html = createHtml.payment_client.aio_check_out_all(params)
 
-      res.send(html)
+      res.set('Content-Type', 'text/html').send(html)
     } catch (error) {
       console.log(error)
       next(error)
