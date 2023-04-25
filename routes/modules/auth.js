@@ -22,10 +22,9 @@ router.get('/facebook/callback', async (req, res, next) => {
   })(req, res, next)
 }, (req, res, next) => {
   // #swagger.tags = ['Facebook']
-  const token = jwt.sign(req.user, 'key', { expiresIn: '30d' })
   delete req.user.password
+  const token = jwt.sign(req.user, 'key', { expiresIn: '30d' })
   res.status(200).json({
-    status: 'Success',
     token: token,
     data: req.user
   })
